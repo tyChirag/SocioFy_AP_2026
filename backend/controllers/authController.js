@@ -107,10 +107,12 @@ export const registerUser = async (req, res) => {
             }
         });
 
-        // Generate JWT token for immediate access
+        // Generate JWT token with full user identity payload
         const token = jwt.sign(
             {
                 userId: newUser.id,
+                id: newUser.id,
+                fullName: newUser.fullName,
                 collegeEmail: newUser.collegeEmail
             },
             process.env.JWT_SECRET || "sociofy_secret_jwt_key_2026",
@@ -182,10 +184,12 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        // 4. Generate JWT token (do not block if isVerified is false)
+        // 4. Generate JWT token with full identity payload
         const token = jwt.sign(
             {
                 userId: user.id,
+                id: user.id,
+                fullName: user.fullName,
                 collegeEmail: user.collegeEmail
             },
             process.env.JWT_SECRET || "sociofy_secret_jwt_key_2026",

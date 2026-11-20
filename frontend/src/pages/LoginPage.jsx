@@ -6,6 +6,7 @@ import FormInput from '../components/auth/FormInput';
 import PasswordInput from '../components/auth/PasswordInput';
 import PrimaryButton from '../components/common/PrimaryButton';
 import { loginUser } from '../Services/userServices';
+import { saveAuthToken } from '../Services/postServices';
 
 /**
  * LoginPage Component
@@ -103,12 +104,17 @@ const LoginPage = () => {
       // Call login function from userServices.js
       const response = await loginUser(formData);
 
-      // Store token safely based on rememberMe preference
+      // Store token safely and cleanly without stale tokens from prior accounts
       if (response.token) {
+        saveAuthToken(response.token, formData.rememberMe);
+      }
+
+      if (response.user) {
+        const userJson = JSON.stringify(response.user);
         if (formData.rememberMe) {
-          localStorage.setItem('sociofy_token', response.token);
+          localStorage.setItem('sociofy_user', userJson);
         } else {
-          sessionStorage.setItem('sociofy_token', response.token);
+          sessionStorage.setItem('sociofy_user', userJson);
         }
       }
 
@@ -118,7 +124,7 @@ const LoginPage = () => {
       // Navigate to /home on successful login
       setTimeout(() => {
         navigate('/home');
-      }, 800);
+      }, 500);
     } catch (err) {
       // Display the backend error message
       setApiError(err.message || 'Invalid college email or password.');

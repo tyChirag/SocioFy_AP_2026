@@ -6,6 +6,7 @@ import FormInput from '../components/auth/FormInput';
 import PasswordInput from '../components/auth/PasswordInput';
 import PrimaryButton from '../components/common/PrimaryButton';
 import { registerUser } from '../Services/userServices';
+import { saveAuthToken } from '../Services/postServices';
 
 /**
  * Department and Academic Year options for dropdown selection
@@ -167,9 +168,12 @@ const SignupPage = () => {
       // Call registration function from userServices.js
       const response = await registerUser(formData);
 
-      // Save token if returned by backend
+      // Save token and user info cleanly if returned by backend
       if (response.token) {
-        localStorage.setItem('sociofy_token', response.token);
+        saveAuthToken(response.token, true);
+        if (response.user) {
+          localStorage.setItem('sociofy_user', JSON.stringify(response.user));
+        }
       }
 
       setSuccessMessage('Registration successful! Redirecting to home...');

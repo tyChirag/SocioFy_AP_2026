@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -9,16 +8,65 @@ datasource db {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  fullName       String
-  collegeEmail   String   @unique
-  collegeName    String
-  department     String
-  academicYear   String
-  password       String
-  termsAccepted  Boolean  @default(false)
-  isVerified     Boolean  @default(false)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  fullName      String
+  collegeEmail  String   @unique
+  collegeName   String
+  department    String
+  academicYear  String
+  password      String
+  termsAccepted Boolean  @default(false)
+  isVerified    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
 }
 
+model Post {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments  Comment[]
+  likes     Like[]
+
+  @@index([authorId])
+  @@index([createdAt])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId, createdAt])
+  @@index([userId])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([postId])
+}

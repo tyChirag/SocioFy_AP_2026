@@ -5,8 +5,8 @@ import PrimaryButton from '../common/PrimaryButton';
 
 /**
  * Navbar Component
- * Sticky, responsive navigation bar with smooth scrolling links,
- * mobile drawer menu, and auth placeholders.
+ * Compact, responsive navigation bar with brand identity,
+ * clean links (Features, About, Log In, Get Started), and mobile drawer.
  */
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,7 +34,7 @@ const Navbar = () => {
 
     const element = document.getElementById(targetId);
     if (element) {
-      const offset = 80; // Account for fixed navbar height
+      const offset = 80; // Fixed navbar offset
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -48,12 +48,8 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { label: 'Home', id: 'top' },
     { label: 'Features', id: 'features' },
-    { label: 'Communities', id: 'communities' },
-    { label: 'Projects', id: 'projects' },
-    { label: 'Events', id: 'events' },
-    { label: 'About', id: 'communication' },
+    { label: 'About', id: 'about' },
   ];
 
   return (
@@ -65,7 +61,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Left: Brand Logo & Name */}
           <Link
             to="/"
@@ -87,13 +83,13 @@ const Navbar = () => {
           </Link>
 
           {/* Middle: Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleNavClick(e, link.id)}
-                className="px-3.5 py-2 text-sm font-medium text-[#17233B] hover:text-[#5277D9] hover:bg-[#E8EDF7]/60 rounded-lg transition-all duration-150"
+                className="px-4 py-2 text-sm font-medium text-[#17233B] hover:text-[#5277D9] hover:bg-[#E8EDF7]/60 rounded-lg transition-all duration-150"
               >
                 {link.label}
               </a>

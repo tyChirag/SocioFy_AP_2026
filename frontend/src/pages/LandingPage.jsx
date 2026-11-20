@@ -1,22 +1,21 @@
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import Hero from '../components/landing/Hero';
-import Stats from '../components/landing/Stats';
 import Features from '../components/landing/Features';
-import Communication from '../components/landing/Communication';
-import ProjectsPreview from '../components/landing/ProjectsPreview';
-import CommunitiesPreview from '../components/landing/CommunitiesPreview';
-import EventsPreview from '../components/landing/EventsPreview';
 
 /**
  * LandingPage Component
- * Primary public-facing landing page for SocioFy.
- * Assembles all landing sections in logical order with sticky navigation and footer.
+ * Clean, simplified, and modern landing page for SocioFy.
+ * Consists strictly of 4 sections:
+ * 1. Navbar
+ * 2. Hero
+ * 3. Features (Combined Connect, Collaborate, Communicate)
+ * 4. Footer
  */
 const LandingPage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F9FC] text-[#17233B] antialiased selection:bg-[#5277D9] selection:text-white">
-      {/* 1. Sticky Navigation Bar */}
+      {/* 1. Navbar */}
       <Navbar />
 
       {/* Main Content Sections */}
@@ -24,26 +23,11 @@ const LandingPage = () => {
         {/* 2. Hero Section */}
         <Hero />
 
-        {/* 3. Platform Highlights / Stats */}
-        <Stats />
-
-        {/* 4. Core Features */}
+        {/* 3. Features Section */}
         <Features />
-
-        {/* 5. Communication & Messaging Preview */}
-        <Communication />
-
-        {/* 6. Sample Projects Preview */}
-        <ProjectsPreview />
-
-        {/* 7. Sample Communities Preview */}
-        <CommunitiesPreview />
-
-        {/* 8. Sample Events Preview */}
-        <EventsPreview />
       </main>
 
-      {/* Platform Footer immediately following Events */}
+      {/* 4. Footer */}
       <Footer />
     </div>
   );
