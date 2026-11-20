@@ -15,6 +15,7 @@ import HomePage from './pages/HomePage';
 import PostDetailsPage from './pages/PostDetailsPage';
 import ExplorePage from './pages/ExplorePage';
 import ProfilePage from './pages/ProfilePage';
+import MessagesPage from './pages/MessagesPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 /**
@@ -77,16 +78,9 @@ function App() {
           />
         }
       />
-      <Route
-        path="/messages"
-        element={
-          <PlaceholderPage
-            title="Private Messages"
-            description="Connect 1-on-1 with campus peers and collaborate in group chats."
-            icon={MessageSquare}
-          />
-        }
-      />
+      {/* Private Messages Routes */}
+      <Route path="/messages" element={<MessagesPage />} />
+      <Route path="/messages/:conversationId" element={<MessagesPage />} />
 
       {/* Catch-all Route: Redirect unknown routes to Landing Page */}
       <Route path="*" element={<Navigate to="/" replace />} />

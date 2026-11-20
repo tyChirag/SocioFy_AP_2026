@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 import Avatar from '../common/Avatar';
 import { useAuth } from '../../context/AuthContext';
+import { useNotifications } from '../../context/NotificationContext';
+import NotificationDropdown from './NotificationDropdown';
+import ToastNotification from './ToastNotification';
 
 /**
  * TopNavbar Component
@@ -24,10 +27,12 @@ import { useAuth } from '../../context/AuthContext';
 const TopNavbar = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Consume synchronized global authentication state
   const { currentUser, logout } = useAuth();
+  const { unreadCount } = useNotifications();
 
   const userName = currentUser?.fullName || 'Student User';
   const userEmail = currentUser?.collegeEmail || currentUser?.email || 'student@college.edu';
@@ -89,19 +94,37 @@ const TopNavbar = () => {
               title="Messages"
             >
               <MessageSquare className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#5277D9]" />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-4.5 h-4.5 px-1 rounded-full bg-[#5277D9] text-white text-[10px] font-extrabold flex items-center justify-center shadow-xs">
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </span>
+              )}
             </Link>
 
-            {/* Notifications Shortcut */}
-            <button
-              type="button"
-              className="p-2 rounded-xl text-[#667085] hover:text-[#17233B] hover:bg-[#F8F9FC] transition-colors relative"
-              title="Notifications"
-              onClick={() => alert('Notifications: You have 3 new updates.')}
-            >
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500" />
-            </button>
+            {/* Notifications Shortcut with Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                className={`p-2 rounded-xl transition-colors relative cursor-pointer ${
+                  notificationsOpen
+                    ? 'bg-[#E8EDF7] text-[#5277D9]'
+                    : 'text-[#667085] hover:text-[#17233B] hover:bg-[#F8F9FC]'
+                }`}
+                title="Notifications"
+                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                aria-expanded={notificationsOpen}
+              >
+                <Bell className="w-5 h-5" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white animate-pulse" />
+                )}
+              </button>
+
+              <NotificationDropdown
+                isOpen={notificationsOpen}
+                onClose={() => setNotificationsOpen(false)}
+              />
+            </div>
 
             {/* Profile Menu Dropdown */}
             <div className="relative ml-1" ref={dropdownRef}>
@@ -164,6 +187,9 @@ const TopNavbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Real-time In-App Message Toast Notification */}
+      <ToastNotification />
     </header>
   );
 };

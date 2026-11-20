@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   UserPlus,
   Clock,
@@ -11,8 +11,10 @@ import {
   Sparkles,
   Loader2,
   Trash2,
+  MessageSquare,
 } from 'lucide-react';
 import Avatar from '../common/Avatar';
+import { createOrGetConversation } from '../../Services/messageServices';
 
 /**
  * Helper to generate initials from full name
@@ -39,8 +41,28 @@ const StudentCard = ({
   onRejectRequest,
   onRemoveConnection,
 }) => {
+  const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [showConfirmRemove, setShowConfirmRemove] = useState(false);
+  const [isMessaging, setIsMessaging] = useState(false);
+
+  const handleMessage = async () => {
+    if (!student?.id || isMessaging) return;
+    try {
+      setIsMessaging(true);
+      const conv = await createOrGetConversation(student.id);
+      if (conv?.id) {
+        navigate(`/messages/${conv.id}`);
+      } else {
+        navigate('/messages');
+      }
+    } catch (err) {
+      console.error('Failed to open message conversation:', err);
+      alert(err.message || 'Could not start conversation.');
+    } finally {
+      setIsMessaging(false);
+    }
+  };
 
   // Parse comma-separated interests or skills for clean tag pills
   const interestList = student.interests
@@ -191,10 +213,26 @@ const StudentCard = ({
           <div className="relative">
             {!showConfirmRemove ? (
               <div className="flex items-center justify-between gap-2">
-                <span className="py-1.5 px-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5" />
-                  <span>Connected</span>
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={handleMessage}
+                    disabled={isMessaging}
+                    className="py-1 px-2.5 rounded-xl bg-[#5277D9] hover:bg-[#4364c2] text-white text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-xs"
+                    title="Send message"
+                  >
+                    {isMessaging ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <MessageSquare className="w-3.5 h-3.5" />
+                    )}
+                    <span>Chat</span>
+                  </button>
+                  <span className="py-1 px-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-1">
+                    <UserCheck className="w-3.5 h-3.5" />
+                    <span>Connected</span>
+                  </span>
+                </div>
                 <button
                   type="button"
                   onClick={() => setShowConfirmRemove(true)}

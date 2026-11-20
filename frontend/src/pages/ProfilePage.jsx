@@ -24,6 +24,7 @@ import {
   Users,
   CheckCircle2,
   Plus,
+  MessageSquare,
 } from 'lucide-react';
 import TopNavbar from '../components/layout/TopNavbar';
 import Sidebar from '../components/layout/Sidebar';
@@ -45,6 +46,7 @@ import {
   cancelSentRequest,
   removeConnection,
 } from '../Services/connectionServices';
+import { createOrGetConversation } from '../Services/messageServices';
 import { getStoredUser } from '../Services/postServices';
 
 /**
@@ -129,6 +131,7 @@ const ProfilePage = () => {
   // Connection action in progress
   const [isProcessingAction, setIsProcessingAction] = useState(false);
   const [showConfirmRemove, setShowConfirmRemove] = useState(false);
+  const [isStartingMessage, setIsStartingMessage] = useState(false);
 
   // Edit Profile Modal State
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -321,6 +324,24 @@ const ProfilePage = () => {
       alert(err.message || 'Failed to remove connection.');
     } finally {
       setIsProcessingAction(false);
+    }
+  };
+
+  const handleStartMessage = async () => {
+    if (!profile?.id || isStartingMessage) return;
+    try {
+      setIsStartingMessage(true);
+      const conversation = await createOrGetConversation(profile.id);
+      if (conversation?.id) {
+        navigate(`/messages/${conversation.id}`);
+      } else {
+        navigate('/messages');
+      }
+    } catch (err) {
+      console.error('Failed to open message conversation:', err);
+      alert(err.message || 'Could not open conversation.');
+    } finally {
+      setIsStartingMessage(false);
     }
   };
 
@@ -688,11 +709,25 @@ const ProfilePage = () => {
                             </div>
                           )}
 
-                          {/* Case 4: Connected -> Connected Badge + Remove */}
+                          {/* Case 4: Connected -> Message + Connected Badge + Remove */}
                           {profile.connection?.status === 'CONNECTED' && (
                             <div className="flex items-center gap-2">
                               {!showConfirmRemove ? (
                                 <>
+                                  <button
+                                    type="button"
+                                    onClick={handleStartMessage}
+                                    disabled={isStartingMessage}
+                                    className="px-3.5 py-2 rounded-xl bg-[#5277D9] hover:bg-[#4364c2] text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                                    title="Send Message"
+                                  >
+                                    {isStartingMessage ? (
+                                      <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                      <MessageSquare className="w-4 h-4" />
+                                    )}
+                                    <span>Message</span>
+                                  </button>
                                   <span className="px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5">
                                     <UserCheck className="w-4 h-4" />
                                     <span>Connected</span>

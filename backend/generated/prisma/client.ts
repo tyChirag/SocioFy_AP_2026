@@ -66,3 +66,13 @@ export type Like = Prisma.LikeModel
  * 
  */
 export type Connection = Prisma.ConnectionModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel

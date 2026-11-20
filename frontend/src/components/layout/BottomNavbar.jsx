@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Home, Compass, PlusCircle, MessageSquare, User } from 'lucide-react';
+import { useNotifications } from '../../context/NotificationContext';
 
 /**
  * BottomNavbar Component
@@ -10,6 +11,8 @@ import { Home, Compass, PlusCircle, MessageSquare, User } from 'lucide-react';
  * @param {Function} [props.onCreateClick] - Trigger to scroll or focus composer
  */
 const BottomNavbar = ({ onCreateClick }) => {
+  const location = useLocation();
+  const { unreadCount } = useNotifications();
   const navItems = [
     { label: 'Home', path: '/home', icon: Home },
     { label: 'Explore', path: '/explore', icon: Compass },
@@ -47,13 +50,22 @@ const BottomNavbar = ({ onCreateClick }) => {
             <NavLink
               key={item.path}
               to={item.path}
-              className={({ isActive }) =>
-                `flex flex-col items-center justify-center gap-0.5 transition-colors ${
-                  isActive ? 'text-[#5277D9] font-bold' : 'text-[#667085] hover:text-[#17233B]'
-                }`
-              }
+              className={({ isActive }) => {
+                const isItemActive =
+                  isActive || (item.path !== '/' && location.pathname.startsWith(item.path));
+                return `flex flex-col items-center justify-center gap-0.5 transition-colors relative ${
+                  isItemActive ? 'text-[#5277D9] font-bold' : 'text-[#667085] hover:text-[#17233B]'
+                }`;
+              }}
             >
-              <Icon className="w-5 h-5" />
+              <div className="relative">
+                <Icon className="w-5 h-5" />
+                {item.path === '/messages' && unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-2 min-w-4 h-4 px-1 rounded-full bg-[#5277D9] text-white text-[9px] font-extrabold flex items-center justify-center shadow-xs">
+                    {unreadCount > 99 ? '99+' : unreadCount}
+                  </span>
+                )}
+              </div>
               <span className="text-[10px]">{item.label}</span>
             </NavLink>
           );
