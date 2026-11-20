@@ -17,14 +17,16 @@ model User {
   password      String
   termsAccepted Boolean  @default(false)
   isVerified    Boolean  @default(false)
-  bio           String?
-  profileImage  String?
-  skills        String?
-  interests     String?
-  linkedinUrl   String?
-  githubUrl     String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  bio                  String?
+  profileImage         String?
+  profileImagePublicId String?
+  skills               String?
+  interests            String?
+  linkedinUrl          String?
+  githubUrl            String?
+  portfolioUrl         String?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
 
   posts               Post[]
   comments            Comment[]

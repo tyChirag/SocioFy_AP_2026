@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Heart, MessageSquare, Share2, Send, Trash2, Loader2, Check } from 'lucide-react';
 import Avatar from '../common/Avatar';
 import {
@@ -7,8 +8,8 @@ import {
   fetchPostComments,
   addPostComment,
   deleteCommentApi,
-  getStoredUser,
 } from '../../Services/postServices';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * Format relative time or clean date string
@@ -57,7 +58,7 @@ const getInitials = (name) => {
  * @param {Function} [props.onPostUpdate] - Optional callback to sync post changes back to parent
  */
 const PostCard = ({ post, onPostUpdate }) => {
-  const currentUser = getStoredUser();
+  const { currentUser } = useAuth();
 
   // 1. Like State (Optimistic update)
   const initialLikesCount = typeof post.likesCount === 'number'
@@ -267,15 +268,26 @@ const PostCard = ({ post, onPostUpdate }) => {
       {/* Header: Author Info */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <Avatar
-            initials={getInitials(authorName)}
-            alt={authorName}
-            size="md"
-          />
+          <Link
+            to={post.author?.id ? `/profile/${post.author.id}` : '#'}
+            className="shrink-0 hover:opacity-90 transition-opacity"
+            title={`View ${authorName}'s profile`}
+          >
+            <Avatar
+              src={post.author?.profileImage}
+              initials={getInitials(authorName)}
+              alt={authorName}
+              size="md"
+            />
+          </Link>
           <div>
-            <h4 className="text-sm font-bold text-[#17233B] leading-tight">
+            <Link
+              to={post.author?.id ? `/profile/${post.author.id}` : '#'}
+              className="text-sm font-bold text-[#17233B] hover:text-[#5277D9] transition-colors leading-tight block"
+              title={`View ${authorName}'s profile`}
+            >
               {authorName}
-            </h4>
+            </Link>
             <p className="text-xs text-[#667085] leading-tight mt-0.5">
               {[department, academicYear].filter(Boolean).join(', ')}
               {department || academicYear ? ` • ${collegeName}` : collegeName}

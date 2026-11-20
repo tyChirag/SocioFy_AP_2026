@@ -2,6 +2,32 @@ import { BaseUrl } from "../config";
 import { getAuthToken, clearAuthToken } from "./postServices";
 
 /**
+ * Synchronize user data in localStorage / sessionStorage and dispatch custom update event
+ * @param {Object} updatedUser
+ */
+export const syncStoredUser = (updatedUser) => {
+  if (!updatedUser) return;
+  const existingUserJson = localStorage.getItem("sociofy_user") || sessionStorage.getItem("sociofy_user");
+  let merged = updatedUser;
+  if (existingUserJson) {
+    try {
+      const parsed = JSON.parse(existingUserJson);
+      merged = { ...parsed, ...updatedUser };
+    } catch {}
+  }
+
+  if (localStorage.getItem("sociofy_user")) {
+    localStorage.setItem("sociofy_user", JSON.stringify(merged));
+  } else {
+    sessionStorage.setItem("sociofy_user", JSON.stringify(merged));
+  }
+
+  // Dispatch custom and storage event so header navbar and listeners update immediately
+  window.dispatchEvent(new CustomEvent("sociofy_user_updated", { detail: merged }));
+  window.dispatchEvent(new Event("storage"));
+};
+
+/**
  * Register a new student user
  * @param {Object} userData - Form data matching backend registration schema
  * @returns {Promise<Object>} - Server response object with user info and token
@@ -19,6 +45,10 @@ export const registerUser = async (userData) => {
 
   if (!response.ok) {
     throw new Error(data.message || "Registration failed. Please check your details.");
+  }
+
+  if (data.user) {
+    syncStoredUser(data.user);
   }
 
   return data;
@@ -42,6 +72,10 @@ export const loginUser = async (credentials) => {
 
   if (!response.ok) {
     throw new Error(data.message || "Invalid credentials. Please try again.");
+  }
+
+  if (data.user) {
+    syncStoredUser(data.user);
   }
 
   return data;
@@ -129,8 +163,77 @@ export const fetchUserProfile = async (userId) => {
 };
 
 /**
+ * Fetch all posts authored by a specific student
+ * GET /api/users/:id/posts
+ */
+export const fetchStudentPosts = async (userId, params = {}) => {
+  const token = getAuthToken();
+  const query = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") {
+      query.append(key, value);
+    }
+  });
+
+  const url = `${BaseUrl}/api/users/${userId}/posts${query.toString() ? `?${query.toString()}` : ""}`;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to load posts for this student.");
+  }
+
+  return data;
+};
+
+/**
+ * Fetch all accepted connections of a specific student
+ * GET /api/users/:id/connections
+ */
+export const fetchStudentConnections = async (userId) => {
+  const token = getAuthToken();
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${BaseUrl}/api/users/${userId}/connections`, {
+    method: "GET",
+    headers,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to load student connections.");
+  }
+
+  return (data.connections || []).map((item) =>
+    item.student
+      ? { ...item.student, connectionId: item.connectionId, connectedAt: item.connectedAt }
+      : item
+  );
+};
+
+/**
  * Update the logged-in student's own profile
- * PUT /api/users/profile
+ * PATCH /api/users/me
  */
 export const updateUserProfile = async (profileData) => {
   const token = getAuthToken();
@@ -139,8 +242,8 @@ export const updateUserProfile = async (profileData) => {
     throw new Error("Authentication required to update profile.");
   }
 
-  const response = await fetch(`${BaseUrl}/api/users/profile`, {
-    method: "PUT",
+  const response = await fetch(`${BaseUrl}/api/users/me`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -157,21 +260,115 @@ export const updateUserProfile = async (profileData) => {
     throw new Error(data.message || "Failed to update profile.");
   }
 
-  // Update local storage user profile cache if available
-  const existingUserJson = localStorage.getItem("sociofy_user") || sessionStorage.getItem("sociofy_user");
-  if (existingUserJson) {
-    try {
-      const parsed = JSON.parse(existingUserJson);
-      const updated = { ...parsed, ...data.user };
-      if (localStorage.getItem("sociofy_user")) {
-        localStorage.setItem("sociofy_user", JSON.stringify(updated));
-      } else {
-        sessionStorage.setItem("sociofy_user", JSON.stringify(updated));
-      }
-    } catch {}
+  syncStoredUser(data.user);
+  return data.user;
+};
+
+/**
+ * Upload a profile picture (Avatar) for current logged-in user
+ * POST /api/users/me/avatar
+ * @param {File} file - File object from input[type="file"]
+ * @returns {Promise<Object>}
+ */
+export const uploadAvatarApi = async (file) => {
+  const token = getAuthToken();
+
+  if (!token) {
+    throw new Error("Authentication required to upload profile picture.");
   }
 
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const response = await fetch(`${BaseUrl}/api/users/me/avatar`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // NOTE: Do not set Content-Type header when uploading FormData
+    },
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || "Failed to upload profile picture.");
+  }
+
+  syncStoredUser(data.user);
   return data.user;
+};
+
+/**
+ * Remove profile picture for current logged-in user
+ * DELETE /api/users/me/avatar
+ * @returns {Promise<Object>}
+ */
+export const removeAvatarApi = async () => {
+  const token = getAuthToken();
+
+  if (!token) {
+    throw new Error("Authentication required to remove profile picture.");
+  }
+
+  const response = await fetch(`${BaseUrl}/api/users/me/avatar`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || "Failed to remove profile picture.");
+  }
+
+  syncStoredUser(data.user);
+  return data.user;
+};
+
+/**
+ * Fetch current authenticated student profile fresh from database
+ * GET /api/users/me
+ */
+export const fetchCurrentUser = async () => {
+  const token = getAuthToken();
+
+  if (!token) return null;
+
+  try {
+    const response = await fetch(`${BaseUrl}/api/users/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        clearAuthToken();
+      }
+      return null;
+    }
+
+    if (data.user) {
+      syncStoredUser(data.user);
+    }
+
+    return data.user;
+  } catch (err) {
+    console.warn("fetchCurrentUser error:", err);
+    return null;
+  }
 };
 
 /**

@@ -11,7 +11,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import Avatar from '../common/Avatar';
-import { clearAuthToken, getStoredUser } from '../../Services/postServices';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * TopNavbar Component
@@ -26,16 +26,11 @@ const TopNavbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Read current active authenticated user
-  const user = getStoredUser();
-  const userName = user?.fullName || 'Student User';
-  const userEmail = user?.collegeEmail || user?.email || 'student@college.edu';
-  const initials = userName
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((n) => n[0].toUpperCase())
-    .join('') || 'ST';
+  // Consume synchronized global authentication state
+  const { currentUser, logout } = useAuth();
+
+  const userName = currentUser?.fullName || 'Student User';
+  const userEmail = currentUser?.collegeEmail || currentUser?.email || 'student@college.edu';
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -49,8 +44,7 @@ const TopNavbar = () => {
   }, []);
 
   const handleLogout = () => {
-    // Clear all storage tokens and user info cleanly
-    clearAuthToken();
+    logout();
     navigate('/login');
   };
 
@@ -119,8 +113,7 @@ const TopNavbar = () => {
                 aria-haspopup="true"
               >
                 <Avatar
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-                  initials={initials}
+                  user={currentUser}
                   size="sm"
                 />
                 <ChevronDown className="w-3.5 h-3.5 text-[#667085] hidden sm:block" />
@@ -160,7 +153,7 @@ const TopNavbar = () => {
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors text-left font-medium"
+                    className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors text-left font-medium cursor-pointer"
                   >
                     <LogOut className="w-4 h-4 text-red-500" />
                     <span>Logout</span>

@@ -86,10 +86,12 @@ export const UserScalarFieldEnum = {
   isVerified: 'isVerified',
   bio: 'bio',
   profileImage: 'profileImage',
+  profileImagePublicId: 'profileImagePublicId',
   skills: 'skills',
   interests: 'interests',
   linkedinUrl: 'linkedinUrl',
   githubUrl: 'githubUrl',
+  portfolioUrl: 'portfolioUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -102,6 +102,13 @@ export const registerUser = async (req, res) => {
                 collegeName: true,
                 department: true,
                 academicYear: true,
+                bio: true,
+                profileImage: true,
+                skills: true,
+                interests: true,
+                linkedinUrl: true,
+                githubUrl: true,
+                portfolioUrl: true,
                 isVerified: true,
                 createdAt: true
             }
@@ -204,6 +211,13 @@ export const loginUser = async (req, res) => {
             collegeName: user.collegeName,
             department: user.department,
             academicYear: user.academicYear,
+            bio: user.bio,
+            profileImage: user.profileImage,
+            skills: user.skills,
+            interests: user.interests,
+            linkedinUrl: user.linkedinUrl,
+            githubUrl: user.githubUrl,
+            portfolioUrl: user.portfolioUrl,
             isVerified: user.isVerified,
             createdAt: user.createdAt
         };

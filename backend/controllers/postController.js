@@ -44,7 +44,8 @@ export const createPost = async (req, res) => {
                         fullName: true,
                         collegeName: true,
                         department: true,
-                        academicYear: true
+                        academicYear: true,
+                        profileImage: true
                     }
                 },
                 _count: {
@@ -110,7 +111,8 @@ export const getAllPosts = async (req, res) => {
                         fullName: true,
                         collegeName: true,
                         department: true,
-                        academicYear: true
+                        academicYear: true,
+                        profileImage: true
                     }
                 },
                 _count: {
@@ -185,7 +187,8 @@ export const getPostById = async (req, res) => {
                         fullName: true,
                         collegeName: true,
                         department: true,
-                        academicYear: true
+                        academicYear: true,
+                        profileImage: true
                     }
                 },
                 _count: {
@@ -420,7 +423,8 @@ export const getCommentsByPost = async (req, res) => {
                         fullName: true,
                         collegeName: true,
                         department: true,
-                        academicYear: true
+                        academicYear: true,
+                        profileImage: true
                     }
                 }
             }
@@ -501,7 +505,8 @@ export const createComment = async (req, res) => {
                         fullName: true,
                         collegeName: true,
                         department: true,
-                        academicYear: true
+                        academicYear: true,
+                        profileImage: true
                     }
                 }
             }

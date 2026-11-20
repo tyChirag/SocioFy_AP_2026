@@ -46,10 +46,12 @@ export type UserMinAggregateOutputType = {
   isVerified: boolean | null
   bio: string | null
   profileImage: string | null
+  profileImagePublicId: string | null
   skills: string | null
   interests: string | null
   linkedinUrl: string | null
   githubUrl: string | null
+  portfolioUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,10 +68,12 @@ export type UserMaxAggregateOutputType = {
   isVerified: boolean | null
   bio: string | null
   profileImage: string | null
+  profileImagePublicId: string | null
   skills: string | null
   interests: string | null
   linkedinUrl: string | null
   githubUrl: string | null
+  portfolioUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -86,10 +90,12 @@ export type UserCountAggregateOutputType = {
   isVerified: number
   bio: number
   profileImage: number
+  profileImagePublicId: number
   skills: number
   interests: number
   linkedinUrl: number
   githubUrl: number
+  portfolioUrl: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -116,10 +122,12 @@ export type UserMinAggregateInputType = {
   isVerified?: true
   bio?: true
   profileImage?: true
+  profileImagePublicId?: true
   skills?: true
   interests?: true
   linkedinUrl?: true
   githubUrl?: true
+  portfolioUrl?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -136,10 +144,12 @@ export type UserMaxAggregateInputType = {
   isVerified?: true
   bio?: true
   profileImage?: true
+  profileImagePublicId?: true
   skills?: true
   interests?: true
   linkedinUrl?: true
   githubUrl?: true
+  portfolioUrl?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -156,10 +166,12 @@ export type UserCountAggregateInputType = {
   isVerified?: true
   bio?: true
   profileImage?: true
+  profileImagePublicId?: true
   skills?: true
   interests?: true
   linkedinUrl?: true
   githubUrl?: true
+  portfolioUrl?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -263,10 +275,12 @@ export type UserGroupByOutputType = {
   isVerified: boolean
   bio: string | null
   profileImage: string | null
+  profileImagePublicId: string | null
   skills: string | null
   interests: string | null
   linkedinUrl: string | null
   githubUrl: string | null
+  portfolioUrl: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -306,10 +320,12 @@ export type UserWhereInput = {
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   profileImage?: Prisma.StringNullableFilter<"User"> | string | null
+  profileImagePublicId?: Prisma.StringNullableFilter<"User"> | string | null
   skills?: Prisma.StringNullableFilter<"User"> | string | null
   interests?: Prisma.StringNullableFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  portfolioUrl?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
@@ -331,10 +347,12 @@ export type UserOrderByWithRelationInput = {
   isVerified?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
   skills?: Prisma.SortOrderInput | Prisma.SortOrder
   interests?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  portfolioUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   posts?: Prisma.PostOrderByRelationAggregateInput
@@ -359,10 +377,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   profileImage?: Prisma.StringNullableFilter<"User"> | string | null
+  profileImagePublicId?: Prisma.StringNullableFilter<"User"> | string | null
   skills?: Prisma.StringNullableFilter<"User"> | string | null
   interests?: Prisma.StringNullableFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
   githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  portfolioUrl?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
@@ -384,10 +404,12 @@ export type UserOrderByWithAggregationInput = {
   isVerified?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
   skills?: Prisma.SortOrderInput | Prisma.SortOrder
   interests?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  portfolioUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -412,10 +434,12 @@ export type UserScalarWhereWithAggregatesInput = {
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   profileImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  profileImagePublicId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   skills?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   interests?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   githubUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  portfolioUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -431,10 +455,12 @@ export type UserCreateInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -456,10 +482,12 @@ export type UserUncheckedCreateInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -480,10 +508,12 @@ export type UserUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -505,10 +535,12 @@ export type UserUncheckedUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -530,10 +562,12 @@ export type UserCreateManyInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -549,10 +583,12 @@ export type UserUpdateManyMutationInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -569,10 +605,12 @@ export type UserUncheckedUpdateManyInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -589,10 +627,12 @@ export type UserCountOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   profileImage?: Prisma.SortOrder
+  profileImagePublicId?: Prisma.SortOrder
   skills?: Prisma.SortOrder
   interests?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
+  portfolioUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -613,10 +653,12 @@ export type UserMaxOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   profileImage?: Prisma.SortOrder
+  profileImagePublicId?: Prisma.SortOrder
   skills?: Prisma.SortOrder
   interests?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
+  portfolioUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -633,10 +675,12 @@ export type UserMinOrderByAggregateInput = {
   isVerified?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   profileImage?: Prisma.SortOrder
+  profileImagePublicId?: Prisma.SortOrder
   skills?: Prisma.SortOrder
   interests?: Prisma.SortOrder
   linkedinUrl?: Prisma.SortOrder
   githubUrl?: Prisma.SortOrder
+  portfolioUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -755,10 +799,12 @@ export type UserCreateWithoutPostsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -779,10 +825,12 @@ export type UserUncheckedCreateWithoutPostsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -818,10 +866,12 @@ export type UserUpdateWithoutPostsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -842,10 +892,12 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -865,10 +917,12 @@ export type UserCreateWithoutCommentsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -889,10 +943,12 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -928,10 +984,12 @@ export type UserUpdateWithoutCommentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -952,10 +1010,12 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -975,10 +1035,12 @@ export type UserCreateWithoutLikesInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -999,10 +1061,12 @@ export type UserUncheckedCreateWithoutLikesInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1038,10 +1102,12 @@ export type UserUpdateWithoutLikesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -1062,10 +1128,12 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1085,10 +1153,12 @@ export type UserCreateWithoutSentConnectionsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -1109,10 +1179,12 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1137,10 +1209,12 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
@@ -1161,10 +1235,12 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   isVerified?: boolean
   bio?: string | null
   profileImage?: string | null
+  profileImagePublicId?: string | null
   skills?: string | null
   interests?: string | null
   linkedinUrl?: string | null
   githubUrl?: string | null
+  portfolioUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1200,10 +1276,12 @@ export type UserUpdateWithoutSentConnectionsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -1224,10 +1302,12 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1258,10 +1338,12 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
@@ -1282,10 +1364,12 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1373,10 +1457,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isVerified?: boolean
   bio?: boolean
   profileImage?: boolean
+  profileImagePublicId?: boolean
   skills?: boolean
   interests?: boolean
   linkedinUrl?: boolean
   githubUrl?: boolean
+  portfolioUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
@@ -1399,10 +1485,12 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isVerified?: boolean
   bio?: boolean
   profileImage?: boolean
+  profileImagePublicId?: boolean
   skills?: boolean
   interests?: boolean
   linkedinUrl?: boolean
   githubUrl?: boolean
+  portfolioUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1419,10 +1507,12 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isVerified?: boolean
   bio?: boolean
   profileImage?: boolean
+  profileImagePublicId?: boolean
   skills?: boolean
   interests?: boolean
   linkedinUrl?: boolean
   githubUrl?: boolean
+  portfolioUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1439,15 +1529,17 @@ export type UserSelectScalar = {
   isVerified?: boolean
   bio?: boolean
   profileImage?: boolean
+  profileImagePublicId?: boolean
   skills?: boolean
   interests?: boolean
   linkedinUrl?: boolean
   githubUrl?: boolean
+  portfolioUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "collegeEmail" | "collegeName" | "department" | "academicYear" | "password" | "termsAccepted" | "isVerified" | "bio" | "profileImage" | "skills" | "interests" | "linkedinUrl" | "githubUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "collegeEmail" | "collegeName" | "department" | "academicYear" | "password" | "termsAccepted" | "isVerified" | "bio" | "profileImage" | "profileImagePublicId" | "skills" | "interests" | "linkedinUrl" | "githubUrl" | "portfolioUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
@@ -1480,10 +1572,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isVerified: boolean
     bio: string | null
     profileImage: string | null
+    profileImagePublicId: string | null
     skills: string | null
     interests: string | null
     linkedinUrl: string | null
     githubUrl: string | null
+    portfolioUrl: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1925,10 +2019,12 @@ export interface UserFieldRefs {
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly profileImage: Prisma.FieldRef<"User", 'String'>
+  readonly profileImagePublicId: Prisma.FieldRef<"User", 'String'>
   readonly skills: Prisma.FieldRef<"User", 'String'>
   readonly interests: Prisma.FieldRef<"User", 'String'>
   readonly linkedinUrl: Prisma.FieldRef<"User", 'String'>
   readonly githubUrl: Prisma.FieldRef<"User", 'String'>
+  readonly portfolioUrl: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

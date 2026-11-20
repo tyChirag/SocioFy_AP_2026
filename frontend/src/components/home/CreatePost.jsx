@@ -2,14 +2,15 @@ import { useState, useRef } from 'react';
 import { Send, Loader2, AlertCircle } from 'lucide-react';
 import Avatar from '../common/Avatar';
 import { createNewPost } from '../../Services/postServices';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * CreatePost Component
  * Real post composer connecting to POST /api/posts:
+ * - Uses centralized avatar synchronization for the current student
  * - Two-way state binding with postText
  * - Disabled while empty or submitting
  * - Submits authenticated post to backend and prepends to feed
- * - Displays error banner if creation fails
  *
  * @param {Object} props
  * @param {Function} props.onAddPost - Callback invoked with the newly created database post
@@ -20,6 +21,8 @@ const CreatePost = ({ onAddPost }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const textareaRef = useRef(null);
+
+  const { currentUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +79,7 @@ const CreatePost = ({ onAddPost }) => {
       <form onSubmit={handleSubmit}>
         <div className="flex items-start gap-3">
           <Avatar
-            initials="ST"
+            user={currentUser}
             size="md"
           />
 
