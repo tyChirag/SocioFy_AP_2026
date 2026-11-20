@@ -13,6 +13,8 @@ import SignupPage from './pages/SignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import HomePage from './pages/HomePage';
 import PostDetailsPage from './pages/PostDetailsPage';
+import ExplorePage from './pages/ExplorePage';
+import ProfilePage from './pages/ProfilePage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 /**
@@ -39,17 +41,12 @@ function App() {
       {/* Individual Shared Post Route */}
       <Route path="/post/:id" element={<PostDetailsPage />} />
 
-      {/* Secondary Dashboard Sections */}
-      <Route
-        path="/explore"
-        element={
-          <PlaceholderPage
-            title="Explore Campus"
-            description="Discover trending topics, discussions, and spotlight students across your university."
-            icon={Compass}
-          />
-        }
-      />
+      {/* Explore Students Route */}
+      <Route path="/explore" element={<ExplorePage />} />
+
+      {/* Student Profile Routes */}
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/profile/:id" element={<ProfilePage />} />
       <Route
         path="/communities"
         element={
@@ -87,16 +84,6 @@ function App() {
             title="Private Messages"
             description="Connect 1-on-1 with campus peers and collaborate in group chats."
             icon={MessageSquare}
-          />
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <PlaceholderPage
-            title="Student Profile"
-            description="Manage your college profile, skills, enrolled courses, and activity history."
-            icon={User}
           />
         }
       />

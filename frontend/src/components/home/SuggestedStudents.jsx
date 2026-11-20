@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserPlus, Check } from 'lucide-react';
 import Avatar from '../common/Avatar';
 import { suggestedStudentsData } from '../../data/students';
@@ -77,6 +78,16 @@ const SuggestedStudents = () => {
             </div>
           );
         })}
+      </div>
+
+      <div className="mt-3.5 pt-2 border-t border-[#E5E7EB]/60 text-center">
+        <Link
+          to="/explore"
+          className="text-xs font-semibold text-[#5277D9] hover:underline inline-flex items-center gap-1"
+        >
+          <span>Find more students</span>
+          <span>→</span>
+        </Link>
       </div>
     </div>
   );

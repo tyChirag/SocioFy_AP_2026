@@ -44,6 +44,12 @@ export type UserMinAggregateOutputType = {
   password: string | null
   termsAccepted: boolean | null
   isVerified: boolean | null
+  bio: string | null
+  profileImage: string | null
+  skills: string | null
+  interests: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +64,12 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   termsAccepted: boolean | null
   isVerified: boolean | null
+  bio: string | null
+  profileImage: string | null
+  skills: string | null
+  interests: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,6 +84,12 @@ export type UserCountAggregateOutputType = {
   password: number
   termsAccepted: number
   isVerified: number
+  bio: number
+  profileImage: number
+  skills: number
+  interests: number
+  linkedinUrl: number
+  githubUrl: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +114,12 @@ export type UserMinAggregateInputType = {
   password?: true
   termsAccepted?: true
   isVerified?: true
+  bio?: true
+  profileImage?: true
+  skills?: true
+  interests?: true
+  linkedinUrl?: true
+  githubUrl?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +134,12 @@ export type UserMaxAggregateInputType = {
   password?: true
   termsAccepted?: true
   isVerified?: true
+  bio?: true
+  profileImage?: true
+  skills?: true
+  interests?: true
+  linkedinUrl?: true
+  githubUrl?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +154,12 @@ export type UserCountAggregateInputType = {
   password?: true
   termsAccepted?: true
   isVerified?: true
+  bio?: true
+  profileImage?: true
+  skills?: true
+  interests?: true
+  linkedinUrl?: true
+  githubUrl?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,6 +261,12 @@ export type UserGroupByOutputType = {
   password: string
   termsAccepted: boolean
   isVerified: boolean
+  bio: string | null
+  profileImage: string | null
+  skills: string | null
+  interests: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -262,11 +304,19 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   termsAccepted?: Prisma.BoolFilter<"User"> | boolean
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
+  skills?: Prisma.StringNullableFilter<"User"> | string | null
+  interests?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   likes?: Prisma.LikeListRelationFilter
+  sentConnections?: Prisma.ConnectionListRelationFilter
+  receivedConnections?: Prisma.ConnectionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -279,11 +329,19 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   termsAccepted?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  skills?: Prisma.SortOrderInput | Prisma.SortOrder
+  interests?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   posts?: Prisma.PostOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   likes?: Prisma.LikeOrderByRelationAggregateInput
+  sentConnections?: Prisma.ConnectionOrderByRelationAggregateInput
+  receivedConnections?: Prisma.ConnectionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -299,11 +357,19 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   termsAccepted?: Prisma.BoolFilter<"User"> | boolean
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
+  skills?: Prisma.StringNullableFilter<"User"> | string | null
+  interests?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   posts?: Prisma.PostListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   likes?: Prisma.LikeListRelationFilter
+  sentConnections?: Prisma.ConnectionListRelationFilter
+  receivedConnections?: Prisma.ConnectionListRelationFilter
 }, "id" | "collegeEmail">
 
 export type UserOrderByWithAggregationInput = {
@@ -316,6 +382,12 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   termsAccepted?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  skills?: Prisma.SortOrderInput | Prisma.SortOrder
+  interests?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -338,6 +410,12 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   termsAccepted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  profileImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  skills?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  interests?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -351,11 +429,19 @@ export type UserCreateInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -368,11 +454,19 @@ export type UserUncheckedCreateInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUpdateInput = {
@@ -384,11 +478,19 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -401,11 +503,19 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -418,6 +528,12 @@ export type UserCreateManyInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -431,6 +547,12 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -445,6 +567,12 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -459,6 +587,12 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   termsAccepted?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
+  skills?: Prisma.SortOrder
+  interests?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -477,6 +611,12 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   termsAccepted?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
+  skills?: Prisma.SortOrder
+  interests?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -491,6 +631,12 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   termsAccepted?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
+  skills?: Prisma.SortOrder
+  interests?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -510,6 +656,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -566,6 +716,34 @@ export type UserUpdateOneRequiredWithoutLikesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLikesInput, Prisma.UserUpdateWithoutLikesInput>, Prisma.UserUncheckedUpdateWithoutLikesInput>
 }
 
+export type UserCreateNestedOneWithoutSentConnectionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentConnectionsInput, Prisma.UserUncheckedCreateWithoutSentConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReceivedConnectionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedConnectionsInput, Prisma.UserUncheckedCreateWithoutReceivedConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentConnectionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentConnectionsInput, Prisma.UserUncheckedCreateWithoutSentConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentConnectionsInput
+  upsert?: Prisma.UserUpsertWithoutSentConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentConnectionsInput, Prisma.UserUpdateWithoutSentConnectionsInput>, Prisma.UserUncheckedUpdateWithoutSentConnectionsInput>
+}
+
+export type UserUpdateOneRequiredWithoutReceivedConnectionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedConnectionsInput, Prisma.UserUncheckedCreateWithoutReceivedConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedConnectionsInput
+  upsert?: Prisma.UserUpsertWithoutReceivedConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedConnectionsInput, Prisma.UserUpdateWithoutReceivedConnectionsInput>, Prisma.UserUncheckedUpdateWithoutReceivedConnectionsInput>
+}
+
 export type UserCreateWithoutPostsInput = {
   fullName: string
   collegeEmail: string
@@ -575,10 +753,18 @@ export type UserCreateWithoutPostsInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -591,10 +777,18 @@ export type UserUncheckedCreateWithoutPostsInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -622,10 +816,18 @@ export type UserUpdateWithoutPostsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -638,10 +840,18 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -653,10 +863,18 @@ export type UserCreateWithoutCommentsInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -669,10 +887,18 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -700,10 +926,18 @@ export type UserUpdateWithoutCommentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -716,10 +950,18 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutLikesInput = {
@@ -731,10 +973,18 @@ export type UserCreateWithoutLikesInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutLikesInput = {
@@ -747,10 +997,18 @@ export type UserUncheckedCreateWithoutLikesInput = {
   password: string
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutLikesInput = {
@@ -778,10 +1036,18 @@ export type UserUpdateWithoutLikesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLikesInput = {
@@ -794,10 +1060,238 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutSentConnectionsInput = {
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutSentConnectionsInput = {
+  id?: number
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutSentConnectionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentConnectionsInput, Prisma.UserUncheckedCreateWithoutSentConnectionsInput>
+}
+
+export type UserCreateWithoutReceivedConnectionsInput = {
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
+  id?: number
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutReceivedConnectionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedConnectionsInput, Prisma.UserUncheckedCreateWithoutReceivedConnectionsInput>
+}
+
+export type UserUpsertWithoutSentConnectionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentConnectionsInput, Prisma.UserUncheckedUpdateWithoutSentConnectionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentConnectionsInput, Prisma.UserUncheckedCreateWithoutSentConnectionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentConnectionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentConnectionsInput, Prisma.UserUncheckedUpdateWithoutSentConnectionsInput>
+}
+
+export type UserUpdateWithoutSentConnectionsInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentConnectionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutReceivedConnectionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedConnectionsInput, Prisma.UserUncheckedUpdateWithoutReceivedConnectionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedConnectionsInput, Prisma.UserUncheckedCreateWithoutReceivedConnectionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReceivedConnectionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedConnectionsInput, Prisma.UserUncheckedUpdateWithoutReceivedConnectionsInput>
+}
+
+export type UserUpdateWithoutReceivedConnectionsInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 
@@ -809,12 +1303,16 @@ export type UserCountOutputType = {
   posts: number
   comments: number
   likes: number
+  sentConnections: number
+  receivedConnections: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | UserCountOutputTypeCountPostsArgs
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
   likes?: boolean | UserCountOutputTypeCountLikesArgs
+  sentConnections?: boolean | UserCountOutputTypeCountSentConnectionsArgs
+  receivedConnections?: boolean | UserCountOutputTypeCountReceivedConnectionsArgs
 }
 
 /**
@@ -848,6 +1346,20 @@ export type UserCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.LikeWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConnectionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConnectionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -859,11 +1371,19 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: boolean
+  profileImage?: boolean
+  skills?: boolean
+  interests?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
+  sentConnections?: boolean | Prisma.User$sentConnectionsArgs<ExtArgs>
+  receivedConnections?: boolean | Prisma.User$receivedConnectionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -877,6 +1397,12 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: boolean
+  profileImage?: boolean
+  skills?: boolean
+  interests?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -891,6 +1417,12 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: boolean
+  profileImage?: boolean
+  skills?: boolean
+  interests?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -905,15 +1437,23 @@ export type UserSelectScalar = {
   password?: boolean
   termsAccepted?: boolean
   isVerified?: boolean
+  bio?: boolean
+  profileImage?: boolean
+  skills?: boolean
+  interests?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "collegeEmail" | "collegeName" | "department" | "academicYear" | "password" | "termsAccepted" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "collegeEmail" | "collegeName" | "department" | "academicYear" | "password" | "termsAccepted" | "isVerified" | "bio" | "profileImage" | "skills" | "interests" | "linkedinUrl" | "githubUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
+  sentConnections?: boolean | Prisma.User$sentConnectionsArgs<ExtArgs>
+  receivedConnections?: boolean | Prisma.User$receivedConnectionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -925,6 +1465,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     posts: Prisma.$PostPayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
     likes: Prisma.$LikePayload<ExtArgs>[]
+    sentConnections: Prisma.$ConnectionPayload<ExtArgs>[]
+    receivedConnections: Prisma.$ConnectionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -936,6 +1478,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     termsAccepted: boolean
     isVerified: boolean
+    bio: string | null
+    profileImage: string | null
+    skills: string | null
+    interests: string | null
+    linkedinUrl: string | null
+    githubUrl: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1335,6 +1883,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   posts<T extends Prisma.User$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.User$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentConnections<T extends Prisma.User$sentConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedConnections<T extends Prisma.User$receivedConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1373,6 +1923,12 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly termsAccepted: Prisma.FieldRef<"User", 'Boolean'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly bio: Prisma.FieldRef<"User", 'String'>
+  readonly profileImage: Prisma.FieldRef<"User", 'String'>
+  readonly skills: Prisma.FieldRef<"User", 'String'>
+  readonly interests: Prisma.FieldRef<"User", 'String'>
+  readonly linkedinUrl: Prisma.FieldRef<"User", 'String'>
+  readonly githubUrl: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1837,6 +2393,54 @@ export type User$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.LikeScalarFieldEnum | Prisma.LikeScalarFieldEnum[]
+}
+
+/**
+ * User.sentConnections
+ */
+export type User$sentConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Connection
+   */
+  select?: Prisma.ConnectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Connection
+   */
+  omit?: Prisma.ConnectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConnectionInclude<ExtArgs> | null
+  where?: Prisma.ConnectionWhereInput
+  orderBy?: Prisma.ConnectionOrderByWithRelationInput | Prisma.ConnectionOrderByWithRelationInput[]
+  cursor?: Prisma.ConnectionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConnectionScalarFieldEnum | Prisma.ConnectionScalarFieldEnum[]
+}
+
+/**
+ * User.receivedConnections
+ */
+export type User$receivedConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Connection
+   */
+  select?: Prisma.ConnectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Connection
+   */
+  omit?: Prisma.ConnectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConnectionInclude<ExtArgs> | null
+  where?: Prisma.ConnectionWhereInput
+  orderBy?: Prisma.ConnectionOrderByWithRelationInput | Prisma.ConnectionOrderByWithRelationInput[]
+  cursor?: Prisma.ConnectionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConnectionScalarFieldEnum | Prisma.ConnectionScalarFieldEnum[]
 }
 
 /**

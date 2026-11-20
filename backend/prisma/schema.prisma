@@ -17,12 +17,20 @@ model User {
   password      String
   termsAccepted Boolean  @default(false)
   isVerified    Boolean  @default(false)
+  bio           String?
+  profileImage  String?
+  skills        String?
+  interests     String?
+  linkedinUrl   String?
+  githubUrl     String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  posts         Post[]
-  comments      Comment[]
-  likes         Like[]
+  posts               Post[]
+  comments            Comment[]
+  likes               Like[]
+  sentConnections     Connection[] @relation("SentConnections")
+  receivedConnections Connection[] @relation("ReceivedConnections")
 }
 
 model Post {
@@ -69,4 +77,20 @@ model Like {
 
   @@unique([userId, postId])
   @@index([postId])
+}
+
+model Connection {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  receiverId Int
+  status     String   @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  sender   User @relation("SentConnections", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedConnections", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@index([receiverId, status])
+  @@index([senderId, status])
 }
