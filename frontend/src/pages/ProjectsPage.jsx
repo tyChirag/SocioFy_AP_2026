@@ -4,6 +4,8 @@ import {
   Search,
   Plus,
   X,
+  Loader2,
+  RefreshCw,
   Compass,
   AlertCircle,
   CheckCircle2,
@@ -19,7 +21,6 @@ import {
   joinProject,
   leaveProject,
 } from '../Services/projectServices';
-import { projectsData } from '../data/projects';
 import { useAuth } from '../context/AuthContext';
 
 const CATEGORIES = [
@@ -50,7 +51,7 @@ const ProjectsPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [actionMessage, setActionMessage] = useState(null);
 
-  // Load all projects with automatic fallback to sample data if backend is offline/unconfigured
+  // Load all projects
   const loadProjects = async (category = activeCategory) => {
     setIsLoading(true);
     setError('');
@@ -60,22 +61,10 @@ const ProjectsPage = () => {
         filters.category = category;
       }
       const data = await fetchAllProjects(filters);
-      if (Array.isArray(data) && data.length > 0) {
-        setProjects(data);
-      } else {
-        const filtered =
-          category && category !== 'All'
-            ? projectsData.filter((p) => p.category === category)
-            : projectsData;
-        setProjects(filtered);
-      }
+      setProjects(data);
     } catch (err) {
-      console.warn('Backend unavailable, using sample projects dataset:', err.message);
-      const filtered =
-        category && category !== 'All'
-          ? projectsData.filter((p) => p.category === category)
-          : projectsData;
-      setProjects(filtered);
+      console.error('Failed to load projects:', err);
+      setError(err.message || 'Failed to load projects from server.');
     } finally {
       setIsLoading(false);
     }
@@ -87,25 +76,7 @@ const ProjectsPage = () => {
 
   // Handle Project Creation (prepend new project to list)
   const handleProjectCreated = (newProject) => {
-    const formatted = {
-      id: newProject.id || Date.now(),
-      title: newProject.title,
-      description: newProject.description,
-      skills: newProject.skills,
-      category: newProject.category,
-      openPositions: newProject.openPositions,
-      repoUrl: newProject.repoUrl,
-      membersCount: 1,
-      isMember: true,
-      creator: {
-        id: currentUserId || 999,
-        fullName: currentUser?.fullName || 'You (Creator)',
-        collegeName: currentUser?.collegeName || 'Your Campus',
-        department: currentUser?.department || 'Engineering',
-      },
-      ...newProject,
-    };
-    setProjects((prev) => [formatted, ...prev]);
+    setProjects((prev) => [newProject, ...prev]);
     setActionMessage({
       type: 'success',
       text: 'Project published successfully! Team members can now join.',
@@ -113,8 +84,11 @@ const ProjectsPage = () => {
     setTimeout(() => setActionMessage(null), 4000);
   };
 
-  // Handle Join Project with optimistic update
+  // Handle Join Project with optimistic update and rollback
   const handleJoin = async (projectId) => {
+    const previousProjects = [...projects];
+
+    // Optimistic update: mark as member, decrement open positions, increment member count
     setProjects((prev) =>
       prev.map((p) =>
         p.id === projectId
@@ -135,15 +109,23 @@ const ProjectsPage = () => {
           prev.map((p) => (p.id === projectId ? { ...p, ...res, isMember: true } : p))
         );
       }
+      setActionMessage({ type: 'success', text: 'You have joined the project team!' });
+      setTimeout(() => setActionMessage(null), 3000);
     } catch (err) {
-      console.warn('Live API unavailable; kept optimistic state:', err.message);
+      // Rollback
+      setProjects(previousProjects);
+      console.error('Error joining project:', err);
+      setActionMessage({ type: 'error', text: err.message || 'Failed to join project.' });
+      setTimeout(() => setActionMessage(null), 4000);
+      throw err;
     }
-    setActionMessage({ type: 'success', text: 'You have joined the project team!' });
-    setTimeout(() => setActionMessage(null), 3000);
   };
 
-  // Handle Leave Project with optimistic update
+  // Handle Leave Project with optimistic update and rollback
   const handleLeave = async (projectId) => {
+    const previousProjects = [...projects];
+
+    // Optimistic update: unmark as member, increment open positions, decrement member count
     setProjects((prev) =>
       prev.map((p) =>
         p.id === projectId
@@ -159,11 +141,16 @@ const ProjectsPage = () => {
 
     try {
       await leaveProject(projectId);
+      setActionMessage({ type: 'success', text: 'You have left the project team.' });
+      setTimeout(() => setActionMessage(null), 3000);
     } catch (err) {
-      console.warn('Live API unavailable; kept optimistic state:', err.message);
+      // Rollback
+      setProjects(previousProjects);
+      console.error('Error leaving project:', err);
+      setActionMessage({ type: 'error', text: err.message || 'Failed to leave project.' });
+      setTimeout(() => setActionMessage(null), 4000);
+      throw err;
     }
-    setActionMessage({ type: 'success', text: 'You have left the project team.' });
-    setTimeout(() => setActionMessage(null), 3000);
   };
 
   // Filter projects in-memory by search input (title, skills, description)
@@ -291,6 +278,24 @@ const ProjectsPage = () => {
               </div>
             )}
 
+            {/* Error Banner */}
+            {error && (
+              <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 text-rose-700 text-sm flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5 shrink-0" />
+                  <span>{error}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => loadProjects(activeCategory)}
+                  className="px-3 py-1 bg-white border border-rose-300 rounded-lg text-xs font-semibold text-rose-700 hover:bg-rose-100 flex items-center gap-1 cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Retry</span>
+                </button>
+              </div>
+            )}
+
             {/* Loading Skeleton */}
             {isLoading && (
               <div className="space-y-4">
@@ -323,7 +328,7 @@ const ProjectsPage = () => {
             )}
 
             {/* Projects List */}
-            {!isLoading && filteredProjects.length > 0 && (
+            {!isLoading && !error && filteredProjects.length > 0 && (
               <div className="space-y-4">
                 {filteredProjects.map((project) => (
                   <ProjectCard
@@ -338,7 +343,7 @@ const ProjectsPage = () => {
             )}
 
             {/* Empty State */}
-            {!isLoading && filteredProjects.length === 0 && (
+            {!isLoading && !error && filteredProjects.length === 0 && (
               <div className="bg-white rounded-2xl border border-[#E5E7EB] p-10 text-center shadow-xs">
                 <div className="w-12 h-12 rounded-2xl bg-[#F2F4F7] text-[#98A2B3] flex items-center justify-center mx-auto mb-3">
                   <FolderGit2 className="w-6 h-6" />

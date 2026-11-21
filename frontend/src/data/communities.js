@@ -1,67 +1,63 @@
 import { Code2, Brain, Terminal, Camera, Rocket, Palette } from 'lucide-react';
 
 /**
- * Sample communities data
+ * Sample communities data for the Communities Preview section
+ * All content is clearly marked as demonstration / sample data
  */
 export const communitiesData = [
   {
-    id: 1,
+    id: 'web-dev',
     name: 'Web Development',
     description: 'Explore modern frontend and backend tech stacks, code reviews, open-source repositories, and web architecture.',
-    iconKey: 'Code2',
     icon: Code2,
-    membersCount: 190,
+    members: '190+ members',
     tag: 'Technology',
-    isMember: false,
+    isSample: true,
   },
   {
-    id: 2,
+    id: 'ai-ml',
     name: 'Artificial Intelligence & Machine Learning',
     description: 'Deep dive into machine learning models, neural networks, Kaggle competitions, and generative AI systems.',
-    iconKey: 'Brain',
     icon: Brain,
-    membersCount: 240,
+    members: '240+ members',
     tag: 'AI & Data',
-    isMember: false,
+    isSample: true,
   },
   {
-    id: 3,
+    id: 'competitive-programming',
     name: 'Competitive Programming',
     description: 'Sharpen data structures and algorithms, take part in weekly contests, and prepare for tech interviews.',
-    iconKey: 'Terminal',
     icon: Terminal,
-    membersCount: 160,
+    members: '160+ members',
     tag: 'Coding',
-    isMember: false,
+    isSample: true,
   },
   {
-    id: 4,
+    id: 'photography',
     name: 'Photography & Visual Arts',
     description: 'Join campus photo walks, share composition critiques, exchange gear tips, and document campus life.',
-    iconKey: 'Camera',
     icon: Camera,
-    membersCount: 110,
+    members: '110+ members',
     tag: 'Creative',
-    isMember: false,
+    isSample: true,
   },
   {
-    id: 5,
+    id: 'entrepreneurship',
     name: 'Entrepreneurship & Startups',
     description: 'Brainstorm business ideas, validate market hypotheses, find co-founders, and prepare for pitch days.',
-    iconKey: 'Rocket',
     icon: Rocket,
-    membersCount: 145,
+    members: '145+ members',
     tag: 'Business',
-    isMember: false,
+    isSample: true,
   },
   {
-    id: 6,
+    id: 'design-creativity',
     name: 'Design and Creativity',
     description: 'Master UI/UX wireframing, design systems in Figma, typography, illustration, and product design.',
-    iconKey: 'Palette',
     icon: Palette,
-    membersCount: 175,
+    members: '175+ members',
     tag: 'Design',
-    isMember: false,
+    isSample: true,
   },
 ];
+
