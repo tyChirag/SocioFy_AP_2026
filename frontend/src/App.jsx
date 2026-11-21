@@ -15,6 +15,8 @@ import HomePage from './pages/HomePage';
 import PostDetailsPage from './pages/PostDetailsPage';
 import ExplorePage from './pages/ExplorePage';
 import ProfilePage from './pages/ProfilePage';
+import CommunitiesPage from './pages/CommunitiesPage';
+import ProjectsPage from './pages/ProjectsPage';
 import MessagesPage from './pages/MessagesPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
@@ -48,26 +50,11 @@ function App() {
       {/* Student Profile Routes */}
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/profile/:id" element={<ProfilePage />} />
-      <Route
-        path="/communities"
-        element={
-          <PlaceholderPage
-            title="Campus Communities"
-            description="Join interest-based student clubs, technical guilds, and academic study groups."
-            icon={Users}
-          />
-        }
-      />
-      <Route
-        path="/projects"
-        element={
-          <PlaceholderPage
-            title="Project Collaborations"
-            description="Find teammates, share open-source repositories, and build hackathon projects together."
-            icon={FolderGit2}
-          />
-        }
-      />
+      {/* Campus Communities Route */}
+      <Route path="/communities" element={<CommunitiesPage />} />
+
+      {/* Project Collaborations Route */}
+      <Route path="/projects" element={<ProjectsPage />} />
       <Route
         path="/events"
         element={
