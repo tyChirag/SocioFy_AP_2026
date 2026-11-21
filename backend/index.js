@@ -12,6 +12,8 @@ import userRoutes from "./routes/userRoutes.js";
 import connectionRoutes from "./routes/connectionRoutes.js";
 import conversationRoutes from "./routes/conversationRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import communityRoutes from "./routes/communityRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
 import { initSocket } from "./socket.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -37,6 +39,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/connections", connectionRoutes);
 app.use("/api/conversations", conversationRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/communities", communityRoutes);
+app.use("/api/projects", projectRoutes);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
