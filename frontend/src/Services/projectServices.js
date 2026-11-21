@@ -1,0 +1,166 @@
+import { BaseUrl } from '../config';
+import { getAuthToken, clearAuthToken } from './postServices';
+
+/**
+ * Fetch all projects with creator info, member count, and membership status
+ * Optional filters (e.g., { category: 'Full Stack' })
+ * GET /api/projects[?category=...]
+ */
+export const fetchAllProjects = async (filters = {}) => {
+  const token = getAuthToken();
+  const query = new URLSearchParams(filters).toString();
+  const url = `${BaseUrl}/api/projects${query ? `?${query}` : ''}`;
+
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || 'Failed to load projects.');
+  }
+
+  return data.projects || [];
+};
+
+/**
+ * Create a new collaboration project
+ * POST /api/projects
+ */
+export const createProject = async (projectData) => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Please log in to create a project.');
+  }
+
+  const url = `${BaseUrl}/api/projects`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(projectData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || 'Failed to create project.');
+  }
+
+  return data.project;
+};
+
+/**
+ * Join an existing project
+ * POST /api/projects/:id/join
+ */
+export const joinProject = async (projectId) => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Please log in to join projects.');
+  }
+
+  const url = `${BaseUrl}/api/projects/${projectId}/join`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || 'Failed to join project.');
+  }
+
+  return data.project;
+};
+
+/**
+ * Leave a project
+ * DELETE /api/projects/:id/leave
+ */
+export const leaveProject = async (projectId) => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Please log in to leave projects.');
+  }
+
+  const url = `${BaseUrl}/api/projects/${projectId}/leave`;
+
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || 'Failed to leave project.');
+  }
+
+  return data;
+};
+
+/**
+ * Fetch projects joined/created by the current authenticated user
+ * GET /api/projects/mine
+ */
+export const fetchMyProjects = async () => {
+  const token = getAuthToken();
+  if (!token) {
+    return [];
+  }
+
+  const url = `${BaseUrl}/api/projects/mine`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      clearAuthToken();
+    }
+    throw new Error(data.message || 'Failed to fetch your projects.');
+  }
+
+  return data.projects || [];
+};
