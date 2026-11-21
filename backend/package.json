@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "prestart": "prisma migrate deploy",
+    "start": "node index.js",
     "postinstall": "prisma skills sync || exit 0"
   },
   "keywords": [],
@@ -24,10 +26,8 @@
     "multer": "^2.5.0",
     "nodemon": "^3.1.14",
     "pg": "^8.23.1",
+    "prisma": "^7.10.1",
     "socket.io": "^4.8.4",
     "socket.io-client": "^4.8.4"
-  },
-  "devDependencies": {
-    "prisma": "^7.10.1"
   }
 }
