@@ -336,6 +336,9 @@ export type UserWhereInput = {
   conversationsAsUserOne?: Prisma.ConversationListRelationFilter
   conversationsAsUserTwo?: Prisma.ConversationListRelationFilter
   messages?: Prisma.MessageListRelationFilter
+  communityMemberships?: Prisma.CommunityMemberListRelationFilter
+  projectMemberships?: Prisma.ProjectMemberListRelationFilter
+  projects?: Prisma.ProjectListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -366,6 +369,9 @@ export type UserOrderByWithRelationInput = {
   conversationsAsUserOne?: Prisma.ConversationOrderByRelationAggregateInput
   conversationsAsUserTwo?: Prisma.ConversationOrderByRelationAggregateInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
+  communityMemberships?: Prisma.CommunityMemberOrderByRelationAggregateInput
+  projectMemberships?: Prisma.ProjectMemberOrderByRelationAggregateInput
+  projects?: Prisma.ProjectOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -399,6 +405,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   conversationsAsUserOne?: Prisma.ConversationListRelationFilter
   conversationsAsUserTwo?: Prisma.ConversationListRelationFilter
   messages?: Prisma.MessageListRelationFilter
+  communityMemberships?: Prisma.CommunityMemberListRelationFilter
+  projectMemberships?: Prisma.ProjectMemberListRelationFilter
+  projects?: Prisma.ProjectListRelationFilter
 }, "id" | "collegeEmail">
 
 export type UserOrderByWithAggregationInput = {
@@ -480,6 +489,9 @@ export type UserCreateInput = {
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -510,6 +522,9 @@ export type UserUncheckedCreateInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUpdateInput = {
@@ -539,6 +554,9 @@ export type UserUpdateInput = {
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -569,6 +587,9 @@ export type UserUncheckedUpdateInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -851,6 +872,48 @@ export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutCommunityMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommunityMembershipsInput, Prisma.UserUncheckedCreateWithoutCommunityMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommunityMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommunityMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommunityMembershipsInput, Prisma.UserUncheckedCreateWithoutCommunityMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommunityMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutCommunityMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommunityMembershipsInput, Prisma.UserUpdateWithoutCommunityMembershipsInput>, Prisma.UserUncheckedUpdateWithoutCommunityMembershipsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectsInput, Prisma.UserUncheckedCreateWithoutProjectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectsInput, Prisma.UserUncheckedCreateWithoutProjectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectsInput
+  upsert?: Prisma.UserUpsertWithoutProjectsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectsInput, Prisma.UserUpdateWithoutProjectsInput>, Prisma.UserUncheckedUpdateWithoutProjectsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutProjectMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectMembershipsInput, Prisma.UserUpdateWithoutProjectMembershipsInput>, Prisma.UserUncheckedUpdateWithoutProjectMembershipsInput>
+}
+
 export type UserCreateWithoutPostsInput = {
   fullName: string
   collegeEmail: string
@@ -877,6 +940,9 @@ export type UserCreateWithoutPostsInput = {
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -906,6 +972,9 @@ export type UserUncheckedCreateWithoutPostsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -950,6 +1019,9 @@ export type UserUpdateWithoutPostsInput = {
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -979,6 +1051,9 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -1007,6 +1082,9 @@ export type UserCreateWithoutCommentsInput = {
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -1036,6 +1114,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -1080,6 +1161,9 @@ export type UserUpdateWithoutCommentsInput = {
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -1109,6 +1193,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutLikesInput = {
@@ -1137,6 +1224,9 @@ export type UserCreateWithoutLikesInput = {
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutLikesInput = {
@@ -1166,6 +1256,9 @@ export type UserUncheckedCreateWithoutLikesInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutLikesInput = {
@@ -1210,6 +1303,9 @@ export type UserUpdateWithoutLikesInput = {
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLikesInput = {
@@ -1239,6 +1335,9 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutSentConnectionsInput = {
@@ -1267,6 +1366,9 @@ export type UserCreateWithoutSentConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutSentConnectionsInput = {
@@ -1296,6 +1398,9 @@ export type UserUncheckedCreateWithoutSentConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutSentConnectionsInput = {
@@ -1329,6 +1434,9 @@ export type UserCreateWithoutReceivedConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
@@ -1358,6 +1466,9 @@ export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutReceivedConnectionsInput = {
@@ -1402,6 +1513,9 @@ export type UserUpdateWithoutSentConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentConnectionsInput = {
@@ -1431,6 +1545,9 @@ export type UserUncheckedUpdateWithoutSentConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUpsertWithoutReceivedConnectionsInput = {
@@ -1470,6 +1587,9 @@ export type UserUpdateWithoutReceivedConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
@@ -1499,6 +1619,9 @@ export type UserUncheckedUpdateWithoutReceivedConnectionsInput = {
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutConversationsAsUserOneInput = {
@@ -1527,6 +1650,9 @@ export type UserCreateWithoutConversationsAsUserOneInput = {
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutConversationsAsUserOneInput = {
@@ -1556,6 +1682,9 @@ export type UserUncheckedCreateWithoutConversationsAsUserOneInput = {
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutConversationsAsUserOneInput = {
@@ -1589,6 +1718,9 @@ export type UserCreateWithoutConversationsAsUserTwoInput = {
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutConversationsAsUserTwoInput = {
@@ -1618,6 +1750,9 @@ export type UserUncheckedCreateWithoutConversationsAsUserTwoInput = {
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutConversationsAsUserTwoInput = {
@@ -1662,6 +1797,9 @@ export type UserUpdateWithoutConversationsAsUserOneInput = {
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversationsAsUserOneInput = {
@@ -1691,6 +1829,9 @@ export type UserUncheckedUpdateWithoutConversationsAsUserOneInput = {
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUpsertWithoutConversationsAsUserTwoInput = {
@@ -1730,6 +1871,9 @@ export type UserUpdateWithoutConversationsAsUserTwoInput = {
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversationsAsUserTwoInput = {
@@ -1759,6 +1903,9 @@ export type UserUncheckedUpdateWithoutConversationsAsUserTwoInput = {
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -1787,6 +1934,9 @@ export type UserCreateWithoutMessagesInput = {
   receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
   conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -1816,6 +1966,9 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
   conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -1860,6 +2013,9 @@ export type UserUpdateWithoutMessagesInput = {
   receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
   conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -1889,6 +2045,435 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
   conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
   conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserCreateWithoutCommunityMembershipsInput = {
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  profileImagePublicId?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  portfolioUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
+  conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
+  conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
+}
+
+export type UserUncheckedCreateWithoutCommunityMembershipsInput = {
+  id?: number
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  profileImagePublicId?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  portfolioUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+  conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
+  conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type UserCreateOrConnectWithoutCommunityMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommunityMembershipsInput, Prisma.UserUncheckedCreateWithoutCommunityMembershipsInput>
+}
+
+export type UserUpsertWithoutCommunityMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommunityMembershipsInput, Prisma.UserUncheckedUpdateWithoutCommunityMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommunityMembershipsInput, Prisma.UserUncheckedCreateWithoutCommunityMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommunityMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommunityMembershipsInput, Prisma.UserUncheckedUpdateWithoutCommunityMembershipsInput>
+}
+
+export type UserUpdateWithoutCommunityMembershipsInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
+  conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
+  conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommunityMembershipsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+  conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
+  conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserCreateWithoutProjectsInput = {
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  profileImagePublicId?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  portfolioUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
+  conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
+  conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProjectsInput = {
+  id?: number
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  profileImagePublicId?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  portfolioUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+  conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
+  conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProjectsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectsInput, Prisma.UserUncheckedCreateWithoutProjectsInput>
+}
+
+export type UserUpsertWithoutProjectsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectsInput, Prisma.UserUncheckedUpdateWithoutProjectsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectsInput, Prisma.UserUncheckedCreateWithoutProjectsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectsInput, Prisma.UserUncheckedUpdateWithoutProjectsInput>
+}
+
+export type UserUpdateWithoutProjectsInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
+  conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
+  conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+  conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
+  conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutProjectMembershipsInput = {
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  profileImagePublicId?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  portfolioUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionCreateNestedManyWithoutReceiverInput
+  conversationsAsUserOne?: Prisma.ConversationCreateNestedManyWithoutUserOneInput
+  conversationsAsUserTwo?: Prisma.ConversationCreateNestedManyWithoutUserTwoInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutCreatorInput
+}
+
+export type UserUncheckedCreateWithoutProjectMembershipsInput = {
+  id?: number
+  fullName: string
+  collegeEmail: string
+  collegeName: string
+  department: string
+  academicYear: string
+  password: string
+  termsAccepted?: boolean
+  isVerified?: boolean
+  bio?: string | null
+  profileImage?: string | null
+  profileImagePublicId?: string | null
+  skills?: string | null
+  interests?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  portfolioUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  sentConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutSenderInput
+  receivedConnections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutReceiverInput
+  conversationsAsUserOne?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserOneInput
+  conversationsAsUserTwo?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserTwoInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedCreateNestedManyWithoutUserInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type UserCreateOrConnectWithoutProjectMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+}
+
+export type UserUpsertWithoutProjectMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectMembershipsInput, Prisma.UserUncheckedUpdateWithoutProjectMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectMembershipsInput, Prisma.UserUncheckedUpdateWithoutProjectMembershipsInput>
+}
+
+export type UserUpdateWithoutProjectMembershipsInput = {
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUpdateManyWithoutReceiverNestedInput
+  conversationsAsUserOne?: Prisma.ConversationUpdateManyWithoutUserOneNestedInput
+  conversationsAsUserTwo?: Prisma.ConversationUpdateManyWithoutUserTwoNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  collegeName?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYear?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  termsAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  skills?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  interests?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolioUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  sentConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedConnections?: Prisma.ConnectionUncheckedUpdateManyWithoutReceiverNestedInput
+  conversationsAsUserOne?: Prisma.ConversationUncheckedUpdateManyWithoutUserOneNestedInput
+  conversationsAsUserTwo?: Prisma.ConversationUncheckedUpdateManyWithoutUserTwoNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  communityMemberships?: Prisma.CommunityMemberUncheckedUpdateManyWithoutUserNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 
@@ -1905,6 +2490,9 @@ export type UserCountOutputType = {
   conversationsAsUserOne: number
   conversationsAsUserTwo: number
   messages: number
+  communityMemberships: number
+  projectMemberships: number
+  projects: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1916,6 +2504,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   conversationsAsUserOne?: boolean | UserCountOutputTypeCountConversationsAsUserOneArgs
   conversationsAsUserTwo?: boolean | UserCountOutputTypeCountConversationsAsUserTwoArgs
   messages?: boolean | UserCountOutputTypeCountMessagesArgs
+  communityMemberships?: boolean | UserCountOutputTypeCountCommunityMembershipsArgs
+  projectMemberships?: boolean | UserCountOutputTypeCountProjectMembershipsArgs
+  projects?: boolean | UserCountOutputTypeCountProjectsArgs
 }
 
 /**
@@ -1984,6 +2575,27 @@ export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.MessageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCommunityMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommunityMemberWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectMemberWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2013,6 +2625,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   conversationsAsUserOne?: boolean | Prisma.User$conversationsAsUserOneArgs<ExtArgs>
   conversationsAsUserTwo?: boolean | Prisma.User$conversationsAsUserTwoArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  communityMemberships?: boolean | Prisma.User$communityMembershipsArgs<ExtArgs>
+  projectMemberships?: boolean | Prisma.User$projectMembershipsArgs<ExtArgs>
+  projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2092,6 +2707,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   conversationsAsUserOne?: boolean | Prisma.User$conversationsAsUserOneArgs<ExtArgs>
   conversationsAsUserTwo?: boolean | Prisma.User$conversationsAsUserTwoArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  communityMemberships?: boolean | Prisma.User$communityMembershipsArgs<ExtArgs>
+  projectMemberships?: boolean | Prisma.User$projectMembershipsArgs<ExtArgs>
+  projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2108,6 +2726,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     conversationsAsUserOne: Prisma.$ConversationPayload<ExtArgs>[]
     conversationsAsUserTwo: Prisma.$ConversationPayload<ExtArgs>[]
     messages: Prisma.$MessagePayload<ExtArgs>[]
+    communityMemberships: Prisma.$CommunityMemberPayload<ExtArgs>[]
+    projectMemberships: Prisma.$ProjectMemberPayload<ExtArgs>[]
+    projects: Prisma.$ProjectPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2531,6 +3152,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   conversationsAsUserOne<T extends Prisma.User$conversationsAsUserOneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsAsUserOneArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   conversationsAsUserTwo<T extends Prisma.User$conversationsAsUserTwoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsAsUserTwoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  communityMemberships<T extends Prisma.User$communityMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$communityMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommunityMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectMemberships<T extends Prisma.User$projectMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projects<T extends Prisma.User$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3161,6 +3785,78 @@ export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.communityMemberships
+ */
+export type User$communityMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CommunityMember
+   */
+  select?: Prisma.CommunityMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CommunityMember
+   */
+  omit?: Prisma.CommunityMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommunityMemberInclude<ExtArgs> | null
+  where?: Prisma.CommunityMemberWhereInput
+  orderBy?: Prisma.CommunityMemberOrderByWithRelationInput | Prisma.CommunityMemberOrderByWithRelationInput[]
+  cursor?: Prisma.CommunityMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommunityMemberScalarFieldEnum | Prisma.CommunityMemberScalarFieldEnum[]
+}
+
+/**
+ * User.projectMemberships
+ */
+export type User$projectMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectMember
+   */
+  select?: Prisma.ProjectMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectMember
+   */
+  omit?: Prisma.ProjectMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectMemberInclude<ExtArgs> | null
+  where?: Prisma.ProjectMemberWhereInput
+  orderBy?: Prisma.ProjectMemberOrderByWithRelationInput | Prisma.ProjectMemberOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectMemberScalarFieldEnum | Prisma.ProjectMemberScalarFieldEnum[]
+}
+
+/**
+ * User.projects
+ */
+export type User$projectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Project
+   */
+  select?: Prisma.ProjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Project
+   */
+  omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  where?: Prisma.ProjectWhereInput
+  orderBy?: Prisma.ProjectOrderByWithRelationInput | Prisma.ProjectOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectScalarFieldEnum | Prisma.ProjectScalarFieldEnum[]
 }
 
 /**

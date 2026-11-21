@@ -76,3 +76,23 @@ export type Conversation = Prisma.ConversationModel
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model Community
+ * 
+ */
+export type Community = Prisma.CommunityModel
+/**
+ * Model CommunityMember
+ * 
+ */
+export type CommunityMember = Prisma.CommunityMemberModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel
+/**
+ * Model ProjectMember
+ * 
+ */
+export type ProjectMember = Prisma.ProjectMemberModel
