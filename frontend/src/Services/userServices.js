@@ -1,5 +1,5 @@
 import { BaseUrl } from "../config";
-import { getAuthToken, clearAuthToken } from "./postServices";
+import { getAuthToken, clearAuthToken, safeParseJson } from "./postServices";
 
 /**
  * Synchronize user data in localStorage / sessionStorage and dispatch custom update event
@@ -41,7 +41,7 @@ export const registerUser = async (userData) => {
     body: JSON.stringify(userData),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Registration failed. Please check your details.");
@@ -68,7 +68,7 @@ export const loginUser = async (credentials) => {
     body: JSON.stringify(credentials),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Invalid credentials. Please try again.");
@@ -110,7 +110,7 @@ export const fetchStudents = async (params = {}) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to load students.");
@@ -125,7 +125,7 @@ export const fetchStudents = async (params = {}) => {
  */
 export const fetchFilterOptions = async () => {
   const response = await fetch(`${BaseUrl}/api/users/filters`);
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to load filter options.");
@@ -153,7 +153,7 @@ export const fetchUserProfile = async (userId) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to load student profile.");
@@ -190,7 +190,7 @@ export const fetchStudentPosts = async (userId, params = {}) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to load posts for this student.");
@@ -218,7 +218,7 @@ export const fetchStudentConnections = async (userId) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to load student connections.");
@@ -251,7 +251,7 @@ export const updateUserProfile = async (profileData) => {
     body: JSON.stringify(profileData),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -289,7 +289,7 @@ export const uploadAvatarApi = async (file) => {
     body: formData,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -321,7 +321,7 @@ export const removeAvatarApi = async () => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -351,7 +351,7 @@ export const fetchCurrentUser = async () => {
       },
     });
 
-    const data = await response.json();
+    const data = await safeParseJson(response);
 
     if (!response.ok) {
       if (response.status === 401 || response.status === 403) {
@@ -377,5 +377,5 @@ export const fetchCurrentUser = async () => {
 export const testing = async () => {
   const response = await fetch(`${BaseUrl}/`);
   if (!response.ok) throw new Error(`Server responded with ${response.status}`);
-  return response.json();
+  return safeParseJson(response);
 };

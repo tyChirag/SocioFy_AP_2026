@@ -1,5 +1,5 @@
 import { BaseUrl } from "../config";
-import { getAuthToken, clearAuthToken } from "./postServices";
+import { getAuthToken, clearAuthToken, safeParseJson } from "./postServices";
 
 /**
  * Normalize conversation structure to ensure consistency across components
@@ -34,7 +34,7 @@ export const fetchConversations = async () => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
       clearAuthToken();
@@ -62,7 +62,7 @@ export const fetchConversationDetails = async (conversationId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
       clearAuthToken();
@@ -91,7 +91,7 @@ export const createOrGetConversation = async (userId) => {
     body: JSON.stringify({ userId }),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
       if (data.message && data.message.includes("accepted connection")) {
@@ -131,7 +131,7 @@ export const fetchMessages = async (conversationId, params = {}) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
       clearAuthToken();
@@ -165,7 +165,7 @@ export const sendMessageApi = async (conversationId, content) => {
     body: JSON.stringify({ content }),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
   if (!response.ok) {
     throw new Error(data.message || "Failed to send message.");
   }
@@ -191,7 +191,7 @@ export const markConversationReadApi = async (conversationId) => {
       },
     });
 
-    const data = await response.json();
+    const data = await safeParseJson(response);
     return data;
   } catch (err) {
     console.warn("markConversationReadApi error:", err);
@@ -216,7 +216,7 @@ export const deleteMessageApi = async (messageId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
   if (!response.ok) {
     throw new Error(data.message || "Failed to delete message.");
   }

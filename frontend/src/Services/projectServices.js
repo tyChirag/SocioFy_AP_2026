@@ -2,6 +2,25 @@ import { BaseUrl } from '../config';
 import { getAuthToken, clearAuthToken } from './postServices';
 
 /**
+ * Safely parse JSON response from fetch API.
+ * Prevents "Unexpected token '<', <!DOCTYPE..." errors when the API URL
+ * is misconfigured or returns HTML instead of JSON.
+ */
+const safeParseJson = async (response) => {
+  const text = await response.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    if (text.trim().startsWith('<') || text.includes('<!DOCTYPE')) {
+      throw new Error(
+        'Server returned HTML instead of JSON (DOCTYPE error). Please ensure VITE_API_URL is properly configured in Vercel to point to your live backend server.'
+      );
+    }
+    throw new Error(text || `Request failed with status ${response.status}`);
+  }
+};
+
+/**
  * Fetch all projects with creator info, member count, and membership status
  * Optional filters (e.g., { category: 'Full Stack' })
  * GET /api/projects[?category=...]
@@ -24,7 +43,7 @@ export const fetchAllProjects = async (filters = {}) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -57,7 +76,7 @@ export const createProject = async (projectData) => {
     body: JSON.stringify(projectData),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -89,7 +108,7 @@ export const joinProject = async (projectId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -121,7 +140,7 @@ export const leaveProject = async (projectId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -153,7 +172,7 @@ export const fetchMyProjects = async () => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {

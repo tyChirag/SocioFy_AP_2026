@@ -1,5 +1,5 @@
 import { BaseUrl } from "../config";
-import { getAuthToken, clearAuthToken } from "./postServices";
+import { getAuthToken, clearAuthToken, safeParseJson } from "./postServices";
 
 /**
  * Helper to build auth headers
@@ -25,7 +25,7 @@ export const sendConnectionRequest = async (userId) => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -47,7 +47,7 @@ export const fetchIncomingRequests = async () => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -69,7 +69,7 @@ export const fetchSentRequests = async () => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -91,7 +91,7 @@ export const acceptConnectionRequest = async (connectionId) => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -113,7 +113,7 @@ export const rejectConnectionRequest = async (connectionId) => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -135,7 +135,7 @@ export const cancelSentRequest = async (connectionId) => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -157,7 +157,7 @@ export const fetchMyConnections = async () => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -179,7 +179,7 @@ export const removeConnection = async (connectionId) => {
     headers: getAuthHeaders(),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {

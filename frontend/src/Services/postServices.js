@@ -39,6 +39,25 @@ export const clearAuthToken = () => {
 };
 
 /**
+ * Safely parse JSON response from fetch API.
+ * Prevents "Unexpected token '<', <!DOCTYPE..." errors when the API URL
+ * is misconfigured or returns HTML instead of JSON.
+ */
+export const safeParseJson = async (response) => {
+  const text = await response.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    if (text.trim().startsWith('<') || text.includes('<!DOCTYPE')) {
+      throw new Error(
+        'Server returned HTML instead of JSON (DOCTYPE error). Please ensure VITE_API_URL is properly configured in Vercel to point to your live backend server.'
+      );
+    }
+    throw new Error(text || `Request failed with status ${response.status}`);
+  }
+};
+
+/**
  * Helper to get logged in user profile from storage or decoded token
  */
 export const getStoredUser = () => {
@@ -88,7 +107,7 @@ export const fetchAllPosts = async (params = {}) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -121,7 +140,7 @@ export const fetchPostById = async (postId) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Post not found or unavailable.");
@@ -150,7 +169,7 @@ export const createNewPost = async (content) => {
     body: JSON.stringify({ content }),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -181,7 +200,7 @@ export const likePostApi = async (postId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -212,7 +231,7 @@ export const unlikePostApi = async (postId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -245,7 +264,7 @@ export const fetchPostComments = async (postId) => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     throw new Error(data.message || "Failed to load comments.");
@@ -274,7 +293,7 @@ export const addPostComment = async (postId, content) => {
     body: JSON.stringify({ content }),
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -305,7 +324,7 @@ export const deleteCommentApi = async (commentId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {

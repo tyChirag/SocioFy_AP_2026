@@ -2,6 +2,25 @@ import { BaseUrl } from '../config';
 import { getAuthToken, clearAuthToken } from './postServices';
 
 /**
+ * Safely parse JSON response from fetch API.
+ * Prevents "Unexpected token '<', <!DOCTYPE..." errors when the API URL
+ * is misconfigured or returns HTML instead of JSON.
+ */
+const safeParseJson = async (response) => {
+  const text = await response.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    if (text.trim().startsWith('<') || text.includes('<!DOCTYPE')) {
+      throw new Error(
+        'Server returned HTML instead of JSON (DOCTYPE error). Please ensure VITE_API_URL is properly configured in Vercel to point to your live backend server.'
+      );
+    }
+    throw new Error(text || `Request failed with status ${response.status}`);
+  }
+};
+
+/**
  * Fetch all communities with member counts and membership status for current user
  * GET /api/communities
  */
@@ -22,7 +41,7 @@ export const fetchAllCommunities = async () => {
     headers,
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -54,7 +73,7 @@ export const joinCommunity = async (communityId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -86,7 +105,7 @@ export const leaveCommunity = async (communityId) => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
@@ -118,7 +137,7 @@ export const fetchMyCommunities = async () => {
     },
   });
 
-  const data = await response.json();
+  const data = await safeParseJson(response);
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
