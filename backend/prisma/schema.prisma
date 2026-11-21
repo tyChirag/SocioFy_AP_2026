@@ -8,34 +8,37 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  fullName      String
-  collegeEmail  String   @unique
-  collegeName   String
-  department    String
-  academicYear  String
-  password      String
-  termsAccepted Boolean  @default(false)
-  isVerified    Boolean  @default(false)
-  bio                  String?
-  profileImage         String?
-  profileImagePublicId String?
-  skills               String?
-  interests            String?
-  linkedinUrl          String?
-  githubUrl            String?
-  portfolioUrl         String?
-  createdAt            DateTime     @default(now())
-  updatedAt            DateTime     @updatedAt
+  id                    Int        @id @default(autoincrement())
+  fullName              String
+  collegeEmail          String     @unique
+  collegeName           String
+  department            String
+  academicYear          String
+  password              String
+  termsAccepted         Boolean    @default(false)
+  isVerified            Boolean    @default(false)
+  bio                   String?
+  profileImage          String?
+  profileImagePublicId  String?
+  skills                String?
+  interests             String?
+  linkedinUrl           String?
+  githubUrl             String?
+  portfolioUrl          String?
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
 
-  posts               Post[]
-  comments            Comment[]
-  likes               Like[]
-  sentConnections     Connection[] @relation("SentConnections")
-  receivedConnections Connection[] @relation("ReceivedConnections")
-  conversationsAsUserOne Conversation[] @relation("ConversationUserOne")
-  conversationsAsUserTwo Conversation[] @relation("ConversationUserTwo")
-  messages               Message[]      @relation("SentMessages")
+  posts                 Post[]
+  comments              Comment[]
+  likes                 Like[]
+  sentConnections       Connection[]        @relation("SentConnections")
+  receivedConnections   Connection[]        @relation("ReceivedConnections")
+  conversationsAsUserOne Conversation[]     @relation("ConversationUserOne")
+  conversationsAsUserTwo Conversation[]     @relation("ConversationUserTwo")
+  messages              Message[]           @relation("SentMessages")
+  communityMemberships  CommunityMember[]
+  projectMemberships    ProjectMember[]
+  projects              Project[]
 }
 
 model Post {
@@ -131,4 +134,67 @@ model Message {
 
   @@index([conversationId, createdAt])
   @@index([senderId])
+}
+
+model Community {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  tag         String                // "Technology", "AI & Data", "Coding", "Creative", "Business", "Design"
+  iconKey     String?               // Lucide icon name string for frontend mapping
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     CommunityMember[]
+
+  @@index([tag])
+}
+
+model CommunityMember {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  communityId Int
+  joinedAt    DateTime @default(now())
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, communityId])
+  @@index([communityId])
+  @@index([userId])
+}
+
+model Project {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  skills        String               // Comma-separated: "React, Node.js, PostgreSQL"
+  category      String               // "Full Stack", "AI / EdTech", "Web App", etc.
+  openPositions Int      @default(0)
+  repoUrl       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  creatorId     Int
+  creator       User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  members       ProjectMember[]
+
+  @@index([creatorId])
+  @@index([category])
+}
+
+model ProjectMember {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  projectId Int
+  role      String   @default("Member")  // "Creator", "Member"
+  joinedAt  DateTime @default(now())
+
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@index([projectId])
+  @@index([userId])
 }
