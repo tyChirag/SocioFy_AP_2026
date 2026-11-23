@@ -1,0 +1,534 @@
+Timing is on.
+                                                            QUERY PLAN                                                            
+----------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=8.17..8.17 rows=1 width=816) (actual time=0.060..0.061 rows=2 loops=1)
+   Sort Key: full_name
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=5
+   ->  Index Scan using idx_student_dept on student  (cost=0.14..8.16 rows=1 width=816) (actual time=0.013..0.015 rows=2 loops=1)
+         Index Cond: ((department)::text = 'Computer Science'::text)
+         Filter: is_verified
+         Buffers: shared hit=2
+ Planning:
+   Buffers: shared hit=135
+ Planning Time: 1.430 ms
+ Execution Time: 0.122 ms
+(12 rows)
+
+Time: 3.583 ms
+                                                   QUERY PLAN                                                    
+-----------------------------------------------------------------------------------------------------------------
+ Sort  (cost=12.06..12.16 rows=40 width=226) (actual time=0.047..0.048 rows=2 loops=1)
+   Sort Key: (count(*)) DESC, department
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=4
+   ->  HashAggregate  (cost=10.60..11.00 rows=40 width=226) (actual time=0.024..0.025 rows=2 loops=1)
+         Group Key: department
+         Batches: 1  Memory Usage: 24kB
+         Buffers: shared hit=1
+         ->  Seq Scan on student  (cost=0.00..10.40 rows=40 width=218) (actual time=0.005..0.005 rows=3 loops=1)
+               Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=13
+ Planning Time: 0.132 ms
+ Execution Time: 0.087 ms
+(14 rows)
+
+Time: 0.607 ms
+                                                              QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=45.81..46.31 rows=200 width=348) (actual time=0.075..0.078 rows=3 loops=1)
+   Sort Key: (count(cm.student_id)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2
+   ->  HashAggregate  (cost=36.17..38.17 rows=200 width=348) (actual time=0.069..0.073 rows=3 loops=1)
+         Group Key: c.community_id
+         Batches: 1  Memory Usage: 40kB
+         Buffers: shared hit=2
+         ->  Hash Right Join  (cost=14.50..32.87 rows=660 width=344) (actual time=0.052..0.063 rows=4 loops=1)
+               Hash Cond: (cm.community_id = c.community_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on community_membership cm  (cost=0.00..16.60 rows=660 width=8) (actual time=0.006..0.007 rows=4 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=12.00..12.00 rows=200 width=340) (actual time=0.026..0.028 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on community c  (cost=0.00..12.00 rows=200 width=340) (actual time=0.007..0.008 rows=3 loops=1)
+                           Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=95
+ Planning Time: 1.151 ms
+ Execution Time: 0.126 ms
+(22 rows)
+
+Time: 1.798 ms
+                                                              QUERY PLAN                                                               
+---------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=76.44..78.09 rows=660 width=740) (actual time=0.049..0.050 rows=4 loops=1)
+   Sort Key: c.community_name, cm.joined_at
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=6
+   ->  Hash Join  (cost=25.40..45.53 rows=660 width=740) (actual time=0.028..0.032 rows=4 loops=1)
+         Hash Cond: (cm.community_id = c.community_id)
+         Buffers: shared hit=3
+         ->  Hash Join  (cost=10.90..29.27 rows=660 width=526) (actual time=0.012..0.014 rows=4 loops=1)
+               Hash Cond: (cm.student_id = s.student_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on community_membership cm  (cost=0.00..16.60 rows=660 width=94) (actual time=0.003..0.003 rows=4 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=10.40..10.40 rows=40 width=440) (actual time=0.005..0.006 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=440) (actual time=0.003..0.003 rows=3 loops=1)
+                           Buffers: shared hit=1
+         ->  Hash  (cost=12.00..12.00 rows=200 width=222) (actual time=0.008..0.008 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on community c  (cost=0.00..12.00 rows=200 width=222) (actual time=0.002..0.003 rows=3 loops=1)
+                     Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=13
+ Planning Time: 0.236 ms
+ Execution Time: 0.072 ms
+(26 rows)
+
+Time: 0.728 ms
+                                                                       QUERY PLAN                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=32.07..32.07 rows=3 width=522) (actual time=0.025..0.026 rows=2 loops=1)
+   Sort Key: cm.joined_at DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=5
+   ->  Nested Loop  (cost=11.46..32.04 rows=3 width=522) (actual time=0.021..0.024 rows=2 loops=1)
+         Buffers: shared hit=5
+         ->  Index Scan using pk_student on student s  (cost=0.14..8.16 rows=1 width=222) (actual time=0.003..0.004 rows=1 loops=1)
+               Index Cond: (student_id = 1001)
+               Buffers: shared hit=2
+         ->  Hash Join  (cost=11.32..23.85 rows=3 width=308) (actual time=0.016..0.018 rows=2 loops=1)
+               Hash Cond: (c.community_id = cm.community_id)
+               Buffers: shared hit=3
+               ->  Seq Scan on community c  (cost=0.00..12.00 rows=200 width=222) (actual time=0.002..0.002 rows=3 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=11.28..11.28 rows=3 width=94) (actual time=0.011..0.011 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=2
+                     ->  Bitmap Heap Scan on community_membership cm  (cost=4.17..11.28 rows=3 width=94) (actual time=0.008..0.009 rows=2 loops=1)
+                           Recheck Cond: (student_id = 1001)
+                           Heap Blocks: exact=1
+                           Buffers: shared hit=2
+                           ->  Bitmap Index Scan on pk_community_membership  (cost=0.00..4.17 rows=3 width=0) (actual time=0.006..0.006 rows=2 loops=1)
+                                 Index Cond: (student_id = 1001)
+                                 Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=5
+ Planning Time: 0.120 ms
+ Execution Time: 0.053 ms
+(28 rows)
+
+Time: 0.363 ms
+                                                             QUERY PLAN                                                              
+-------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=42.69..42.86 rows=70 width=346) (actual time=0.024..0.024 rows=2 loops=1)
+   Sort Key: (count(er.student_id)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2
+   ->  HashAggregate  (cost=39.84..40.54 rows=70 width=346) (actual time=0.020..0.021 rows=2 loops=1)
+         Group Key: e.event_id
+         Batches: 1  Memory Usage: 24kB
+         Buffers: shared hit=2
+         ->  Hash Right Join  (cost=11.57..29.94 rows=660 width=404) (actual time=0.013..0.017 rows=3 loops=1)
+               Hash Cond: (er.event_id = e.event_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on event_registration er  (cost=0.00..16.60 rows=660 width=86) (actual time=0.002..0.002 rows=3 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=10.70..10.70 rows=70 width=322) (actual time=0.007..0.007 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on event e  (cost=0.00..10.70 rows=70 width=322) (actual time=0.005..0.005 rows=2 loops=1)
+                           Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=83
+ Planning Time: 0.725 ms
+ Execution Time: 0.065 ms
+(22 rows)
+
+Time: 0.996 ms
+                                               QUERY PLAN                                                
+---------------------------------------------------------------------------------------------------------
+ Sort  (cost=11.57..11.63 rows=23 width=984) (actual time=0.003..0.003 rows=0 loops=1)
+   Sort Key: event_date
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=1
+   ->  Seq Scan on event  (cost=0.00..11.05 rows=23 width=984) (actual time=0.002..0.002 rows=0 loops=1)
+         Filter: (event_date >= CURRENT_TIMESTAMP)
+         Rows Removed by Filter: 2
+         Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=3
+ Planning Time: 0.026 ms
+ Execution Time: 0.007 ms
+(12 rows)
+
+Time: 0.110 ms
+                                                             QUERY PLAN                                                              
+-------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=73.52..75.17 rows=660 width=948) (actual time=0.017..0.018 rows=3 loops=1)
+   Sort Key: e.event_date, s.full_name
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=3
+   ->  Hash Join  (cost=22.48..42.61 rows=660 width=948) (actual time=0.012..0.014 rows=3 loops=1)
+         Hash Cond: (er.student_id = s.student_id)
+         Buffers: shared hit=3
+         ->  Hash Join  (cost=11.57..29.94 rows=660 width=416) (actual time=0.006..0.007 rows=3 loops=1)
+               Hash Cond: (er.event_id = e.event_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on event_registration er  (cost=0.00..16.60 rows=660 width=94) (actual time=0.001..0.001 rows=3 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=10.70..10.70 rows=70 width=330) (actual time=0.003..0.003 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on event e  (cost=0.00..10.70 rows=70 width=330) (actual time=0.001..0.002 rows=2 loops=1)
+                           Buffers: shared hit=1
+         ->  Hash  (cost=10.40..10.40 rows=40 width=540) (actual time=0.004..0.004 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=540) (actual time=0.002..0.003 rows=3 loops=1)
+                     Buffers: shared hit=1
+ Planning Time: 0.076 ms
+ Execution Time: 0.030 ms
+(24 rows)
+
+Time: 0.202 ms
+                                                       QUERY PLAN                                                        
+-------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=28.23..28.60 rows=150 width=886) (actual time=0.021..0.022 rows=2 loops=1)
+   Sort Key: p.created_at DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2
+   ->  Hash Join  (cost=10.90..22.80 rows=150 width=886) (actual time=0.017..0.019 rows=2 loops=1)
+         Hash Cond: (p.owner_id = s.student_id)
+         Buffers: shared hit=2
+         ->  Seq Scan on project p  (cost=0.00..11.50 rows=150 width=454) (actual time=0.007..0.007 rows=2 loops=1)
+               Buffers: shared hit=1
+         ->  Hash  (cost=10.40..10.40 rows=40 width=440) (actual time=0.006..0.006 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=440) (actual time=0.003..0.003 rows=3 loops=1)
+                     Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=57
+ Planning Time: 0.513 ms
+ Execution Time: 0.036 ms
+(18 rows)
+
+Time: 0.691 ms
+                                                          QUERY PLAN                                                           
+-------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=30.24..30.25 rows=3 width=560) (actual time=0.019..0.020 rows=1 loops=1)
+   Sort Key: p.title
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2
+   ->  Hash Join  (cost=18.14..30.22 rows=3 width=560) (actual time=0.016..0.017 rows=1 loops=1)
+         Hash Cond: (p.project_id = ps.project_id)
+         Buffers: shared hit=2
+         ->  Seq Scan on project p  (cost=0.00..11.50 rows=150 width=442) (actual time=0.003..0.003 rows=2 loops=1)
+               Buffers: shared hit=1
+         ->  Hash  (cost=18.10..18.10 rows=3 width=122) (actual time=0.010..0.010 rows=1 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on project_skill ps  (cost=0.00..18.10 rows=3 width=122) (actual time=0.007..0.009 rows=1 loops=1)
+                     Filter: (lower((skill_name)::text) = 'postgresql'::text)
+                     Rows Removed by Filter: 6
+                     Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=25
+ Planning Time: 0.279 ms
+ Execution Time: 0.030 ms
+(20 rows)
+
+Time: 0.514 ms
+                                                            QUERY PLAN                                                            
+----------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=64.36..65.61 rows=500 width=662) (actual time=0.029..0.030 rows=3 loops=1)
+   Sort Key: p.title, pm.joined_at
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=3
+   ->  Hash Join  (cost=24.27..41.94 rows=500 width=662) (actual time=0.021..0.024 rows=3 loops=1)
+         Hash Cond: (pm.student_id = s.student_id)
+         Buffers: shared hit=3
+         ->  Hash Join  (cost=13.38..29.71 rows=500 width=448) (actual time=0.013..0.015 rows=3 loops=1)
+               Hash Cond: (pm.project_id = p.project_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on project_member pm  (cost=0.00..15.00 rows=500 width=134) (actual time=0.006..0.006 rows=3 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=11.50..11.50 rows=150 width=322) (actual time=0.004..0.004 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on project p  (cost=0.00..11.50 rows=150 width=322) (actual time=0.002..0.003 rows=2 loops=1)
+                           Buffers: shared hit=1
+         ->  Hash  (cost=10.40..10.40 rows=40 width=222) (actual time=0.006..0.006 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=222) (actual time=0.004..0.004 rows=3 loops=1)
+                     Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=29
+ Planning Time: 0.340 ms
+ Execution Time: 0.043 ms
+(26 rows)
+
+Time: 0.555 ms
+                                                                            QUERY PLAN                                                                            
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=31.93..31.98 rows=20 width=440) (actual time=0.028..0.028 rows=0 loops=1)
+   Sort Key: s.full_name
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=7
+   ->  Nested Loop Anti Join  (cost=0.15..31.50 rows=20 width=440) (actual time=0.026..0.027 rows=0 loops=1)
+         Buffers: shared hit=7
+         ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=440) (actual time=0.003..0.003 rows=3 loops=1)
+               Buffers: shared hit=1
+         ->  Index Only Scan using pk_community_membership on community_membership cm  (cost=0.15..1.40 rows=3 width=4) (actual time=0.007..0.007 rows=1 loops=3)
+               Index Cond: (student_id = s.student_id)
+               Heap Fetches: 3
+               Buffers: shared hit=6
+ Planning Time: 0.074 ms
+ Execution Time: 0.039 ms
+(14 rows)
+
+Time: 0.219 ms
+                                                          QUERY PLAN                                                          
+------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=33.34..33.39 rows=20 width=540) (actual time=0.017..0.017 rows=0 loops=1)
+   Sort Key: s.full_name
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2
+   ->  Hash Right Anti Join  (cost=10.90..32.90 rows=20 width=540) (actual time=0.015..0.016 rows=0 loops=1)
+         Hash Cond: (er.student_id = s.student_id)
+         Buffers: shared hit=2
+         ->  Seq Scan on event_registration er  (cost=0.00..16.60 rows=660 width=4) (actual time=0.002..0.002 rows=3 loops=1)
+               Buffers: shared hit=1
+         ->  Hash  (cost=10.40..10.40 rows=40 width=540) (actual time=0.006..0.006 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=1
+               ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=540) (actual time=0.004..0.004 rows=3 loops=1)
+                     Buffers: shared hit=1
+ Planning Time: 0.058 ms
+ Execution Time: 0.026 ms
+(16 rows)
+
+Time: 0.186 ms
+                                                              QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=40.70..40.87 rows=67 width=230) (actual time=0.023..0.024 rows=1 loops=1)
+   Sort Key: (count(cm.student_id)) DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=2
+   ->  HashAggregate  (cost=36.17..38.67 rows=67 width=230) (actual time=0.022..0.023 rows=1 loops=1)
+         Group Key: c.community_id
+         Filter: (count(cm.student_id) > 1)
+         Batches: 1  Memory Usage: 40kB
+         Rows Removed by Filter: 2
+         Buffers: shared hit=2
+         ->  Hash Join  (cost=14.50..32.87 rows=660 width=226) (actual time=0.014..0.016 rows=4 loops=1)
+               Hash Cond: (cm.community_id = c.community_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on community_membership cm  (cost=0.00..16.60 rows=660 width=8) (actual time=0.006..0.006 rows=4 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=12.00..12.00 rows=200 width=222) (actual time=0.005..0.005 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on community c  (cost=0.00..12.00 rows=200 width=222) (actual time=0.003..0.003 rows=3 loops=1)
+                           Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=2
+ Planning Time: 0.076 ms
+ Execution Time: 0.041 ms
+(24 rows)
+
+Time: 0.285 ms
+                                                                 QUERY PLAN                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=40.75..40.76 rows=3 width=230) (actual time=0.035..0.036 rows=3 loops=1)
+   Buffers: shared hit=2
+   ->  Sort  (cost=40.75..41.25 rows=200 width=230) (actual time=0.034..0.035 rows=3 loops=1)
+         Sort Key: (count(cm.student_id)) DESC, c.community_name
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared hit=2
+         ->  HashAggregate  (cost=36.17..38.17 rows=200 width=230) (actual time=0.028..0.030 rows=3 loops=1)
+               Group Key: c.community_id
+               Batches: 1  Memory Usage: 40kB
+               Buffers: shared hit=2
+               ->  Hash Right Join  (cost=14.50..32.87 rows=660 width=226) (actual time=0.018..0.025 rows=4 loops=1)
+                     Hash Cond: (cm.community_id = c.community_id)
+                     Buffers: shared hit=2
+                     ->  Seq Scan on community_membership cm  (cost=0.00..16.60 rows=660 width=8) (actual time=0.002..0.002 rows=4 loops=1)
+                           Buffers: shared hit=1
+                     ->  Hash  (cost=12.00..12.00 rows=200 width=222) (actual time=0.006..0.006 rows=3 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           Buffers: shared hit=1
+                           ->  Seq Scan on community c  (cost=0.00..12.00 rows=200 width=222) (actual time=0.003..0.004 rows=3 loops=1)
+                                 Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=2
+ Planning Time: 0.075 ms
+ Execution Time: 0.053 ms
+(24 rows)
+
+Time: 0.270 ms
+                                                           QUERY PLAN                                                           
+--------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=31.58..31.71 rows=50 width=332) (actual time=0.028..0.029 rows=2 loops=1)
+   Sort Key: p.open_positions DESC
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=5
+   ->  HashAggregate  (cost=29.67..30.17 rows=50 width=332) (actual time=0.020..0.021 rows=2 loops=1)
+         Group Key: p.project_id
+         Batches: 1  Memory Usage: 24kB
+         Buffers: shared hit=2
+         ->  Hash Right Join  (cost=12.50..28.83 rows=167 width=328) (actual time=0.011..0.017 rows=3 loops=1)
+               Hash Cond: (pm.project_id = p.project_id)
+               Buffers: shared hit=2
+               ->  Seq Scan on project_member pm  (cost=0.00..15.00 rows=500 width=8) (actual time=0.002..0.002 rows=3 loops=1)
+                     Buffers: shared hit=1
+               ->  Hash  (cost=11.88..11.88 rows=50 width=324) (actual time=0.006..0.006 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     Buffers: shared hit=1
+                     ->  Seq Scan on project p  (cost=0.00..11.88 rows=50 width=324) (actual time=0.004..0.004 rows=2 loops=1)
+                           Filter: (open_positions > 0)
+                           Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=11
+ Planning Time: 0.082 ms
+ Execution Time: 0.044 ms
+(23 rows)
+
+Time: 0.377 ms
+                                                                        QUERY PLAN                                                                         
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=86.74..86.84 rows=40 width=246) (actual time=0.124..0.125 rows=3 loops=1)
+   Sort Key: s.student_id
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=7
+   ->  Hash Right Join  (cost=80.52..85.67 rows=40 width=246) (actual time=0.102..0.111 rows=3 loops=1)
+         Hash Cond: (project_member.student_id = s.student_id)
+         Buffers: shared hit=4
+         ->  HashAggregate  (cost=17.50..19.50 rows=200 width=12) (actual time=0.006..0.008 rows=3 loops=1)
+               Group Key: project_member.student_id
+               Batches: 1  Memory Usage: 40kB
+               Buffers: shared hit=1
+               ->  Seq Scan on project_member  (cost=0.00..15.00 rows=500 width=4) (actual time=0.003..0.004 rows=3 loops=1)
+                     Buffers: shared hit=1
+         ->  Hash  (cost=62.52..62.52 rows=40 width=238) (actual time=0.080..0.081 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               Buffers: shared hit=3
+               ->  Hash Right Join  (cost=57.37..62.52 rows=40 width=238) (actual time=0.067..0.075 rows=3 loops=1)
+                     Hash Cond: (event_registration.student_id = s.student_id)
+                     Buffers: shared hit=3
+                     ->  HashAggregate  (cost=21.53..23.53 rows=200 width=12) (actual time=0.007..0.009 rows=3 loops=1)
+                           Group Key: event_registration.student_id
+                           Batches: 1  Memory Usage: 40kB
+                           Buffers: shared hit=1
+                           ->  Seq Scan on event_registration  (cost=0.00..18.25 rows=657 width=4) (actual time=0.004..0.005 rows=3 loops=1)
+                                 Filter: ((status)::text <> 'Cancelled'::text)
+                                 Buffers: shared hit=1
+                     ->  Hash  (cost=35.34..35.34 rows=40 width=230) (actual time=0.051..0.052 rows=3 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           Buffers: shared hit=2
+                           ->  Hash Right Join  (cost=30.80..35.34 rows=40 width=230) (actual time=0.036..0.044 rows=3 loops=1)
+                                 Hash Cond: (community_membership.student_id = s.student_id)
+                                 Buffers: shared hit=2
+                                 ->  HashAggregate  (cost=19.90..21.90 rows=200 width=12) (actual time=0.006..0.008 rows=3 loops=1)
+                                       Group Key: community_membership.student_id
+                                       Batches: 1  Memory Usage: 40kB
+                                       Buffers: shared hit=1
+                                       ->  Seq Scan on community_membership  (cost=0.00..16.60 rows=660 width=4) (actual time=0.002..0.002 rows=4 loops=1)
+                                             Buffers: shared hit=1
+                                 ->  Hash  (cost=10.40..10.40 rows=40 width=222) (actual time=0.013..0.013 rows=3 loops=1)
+                                       Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                       Buffers: shared hit=1
+                                       ->  Seq Scan on student s  (cost=0.00..10.40 rows=40 width=222) (actual time=0.004..0.004 rows=3 loops=1)
+                                             Buffers: shared hit=1
+ Planning Time: 0.213 ms
+ Execution Time: 0.207 ms
+(45 rows)
+
+Time: 0.797 ms
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=22.64..23.14 rows=200 width=126) (actual time=0.019..0.019 rows=2 loops=1)
+   Sort Key: (count(*)) DESC, category
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=1
+   ->  HashAggregate  (cost=13.00..15.00 rows=200 width=126) (actual time=0.007..0.009 rows=2 loops=1)
+         Group Key: category
+         Batches: 1  Memory Usage: 40kB
+         Buffers: shared hit=1
+         ->  Seq Scan on community  (cost=0.00..12.00 rows=200 width=118) (actual time=0.003..0.003 rows=3 loops=1)
+               Buffers: shared hit=1
+ Planning Time: 0.030 ms
+ Execution Time: 0.030 ms
+(12 rows)
+
+Time: 0.150 ms
+                                                 QUERY PLAN                                                  
+-------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=13.02..14.42 rows=70 width=16) (actual time=0.027..0.027 rows=1 loops=1)
+   Group Key: (date_trunc('month'::text, event_date))
+   Buffers: shared hit=1
+   ->  Sort  (cost=13.02..13.20 rows=70 width=8) (actual time=0.023..0.024 rows=2 loops=1)
+         Sort Key: (date_trunc('month'::text, event_date))
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared hit=1
+         ->  Seq Scan on event  (cost=0.00..10.88 rows=70 width=8) (actual time=0.020..0.021 rows=2 loops=1)
+               Buffers: shared hit=1
+ Planning Time: 0.029 ms
+ Execution Time: 0.042 ms
+(11 rows)
+
+Time: 0.194 ms
+                                                                           QUERY PLAN                                                                           
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=3812.13..3812.23 rows=40 width=238) (actual time=0.063..0.064 rows=3 loops=1)
+   Sort Key: (dense_rank() OVER (?)), s.full_name
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=13
+   ->  WindowAgg  (cost=1910.91..3811.06 rows=40 width=238) (actual time=0.053..0.058 rows=3 loops=1)
+         Buffers: shared hit=13
+         ->  Sort  (cost=1910.91..1911.01 rows=40 width=230) (actual time=0.049..0.050 rows=3 loops=1)
+               Sort Key: ((((SubPlan 1) + (SubPlan 2)) + (SubPlan 3))) DESC
+               Sort Method: quicksort  Memory: 25kB
+               Buffers: shared hit=13
+               ->  Seq Scan on student s  (cost=0.00..1909.85 rows=40 width=230) (actual time=0.025..0.047 rows=3 loops=1)
+                     Buffers: shared hit=13
+                     SubPlan 1
+                       ->  Aggregate  (cost=11.29..11.30 rows=1 width=8) (actual time=0.005..0.005 rows=1 loops=3)
+                             Buffers: shared hit=6
+                             ->  Bitmap Heap Scan on community_membership cm  (cost=4.17..11.28 rows=3 width=0) (actual time=0.003..0.003 rows=1 loops=3)
+                                   Recheck Cond: (student_id = s.student_id)
+                                   Heap Blocks: exact=3
+                                   Buffers: shared hit=6
+                                   ->  Bitmap Index Scan on pk_community_membership  (cost=0.00..4.17 rows=3 width=0) (actual time=0.001..0.001 rows=1 loops=3)
+                                         Index Cond: (student_id = s.student_id)
+                                         Buffers: shared hit=3
+                     SubPlan 2
+                       ->  Aggregate  (cost=19.91..19.92 rows=1 width=8) (actual time=0.004..0.004 rows=1 loops=3)
+                             Buffers: shared hit=3
+                             ->  Seq Scan on event_registration er  (cost=0.00..19.90 rows=3 width=0) (actual time=0.002..0.002 rows=1 loops=3)
+                                   Filter: (((status)::text <> 'Cancelled'::text) AND (student_id = s.student_id))
+                                   Rows Removed by Filter: 2
+                                   Buffers: shared hit=3
+                     SubPlan 3
+                       ->  Aggregate  (cost=16.25..16.27 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=3)
+                             Buffers: shared hit=3
+                             ->  Seq Scan on project_member pm  (cost=0.00..16.25 rows=2 width=0) (actual time=0.001..0.001 rows=1 loops=3)
+                                   Filter: (student_id = s.student_id)
+                                   Rows Removed by Filter: 2
+                                   Buffers: shared hit=3
+ Planning:
+   Buffers: shared hit=5
+ Planning Time: 0.185 ms
+ Execution Time: 0.108 ms
+(40 rows)
+
+Time: 0.552 ms
